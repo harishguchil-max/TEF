@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Ethics Forum tradeethics.org</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1c32;--navy2:#122240;--navy3:#1a2e50;
+  --gold:#b8912a;--gold-lt:#cfa83e;--gold-pale:#e8d89a;
+  --cream:#f4efe6;--cream2:#ede8df;--cream3:#e5dfd5;
+  --muted:#7e7668;--border:#d5ccc0;--white:#fff;
+  --green:#2d6a4f;--green-bg:#e8f4f0;
+  --red-soft:#7a2828;--red-bg:#fdf2f2;
+  --body-font:'IBM Plex Sans',sans-serif;
+  --serif:'Playfair Display',serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+html,body{font-family:var(--body-font);background:var(--cream);color:var(--navy);font-size:14px;line-height:1.6;scroll-behavior:smooth}
+a{text-decoration:none;color:inherit;cursor:pointer}
+button{font-family:var(--body-font);cursor:pointer}
+.page{display:none}.page.active{display:block}
+/* UTILITY */
+.lrow{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.lbar{width:22px;height:1.5px;background:var(--gold);flex-shrink:0}
+.ltxt{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.stitle{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1.22;margin-bottom:8px}
+.ssub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.78}
+.btn-gold{background:var(--gold);color:var(--navy);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border:none;transition:background .2s}
+.btn-gold:hover{background:var(--gold-lt)}
+.btn-ghost{background:transparent;color:#fff;font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;padding:10px 22px;border:1px solid rgba(255,255,255,.22);transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.55);color:rgba(255,255,255,.9)}
+.btn-navy{background:var(--navy);color:#fff;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border:none;transition:background .2s}
+.btn-navy:hover{background:var(--navy3)}
+.btn-outline{background:transparent;color:var(--navy);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:10px 22px;border:1px solid var(--navy);transition:background .2s,color .2s}
+.btn-outline:hover{background:var(--navy);color:#fff}
+.section-wrap{padding:56px 48px}
+.section-wrap-dark{padding:56px 48px;background:var(--navy);color:#fff}
+.section-wrap-cream{padding:56px 48px;background:var(--cream2)}
+.section-wrap-white{padding:56px 48px;background:var(--white)}
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;border-bottom:1.5px solid rgba(184,145,42,.35);position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.nav-seal{width:38px;height:38px;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-seal-txt{font-family:var(--serif);font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.04em}
+.nav-brand{display:flex;flex-direction:column}
+.nav-short{font-size:13.5px;font-weight:500;color:#fff;letter-spacing:.08em}
+.nav-long{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.04em;font-weight:300}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-link{color:rgba(255,255,255,.52);font-size:11px;text-decoration:none;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;padding:7px 11px;border:none;background:none;font-family:var(--body-font);transition:color .2s}
+.nav-link:hover,.nav-link.active{color:rgba(255,255,255,.88)}
+.nav-cta{background:transparent;color:var(--gold);font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:8px 18px;border:1px solid rgba(184,145,42,.45);transition:all .2s;margin-left:8px}
+.nav-cta:hover{background:var(--gold);color:var(--navy)}
+/* ═══════════════════════════════════════
+   TICKER
+═══════════════════════════════════════ */
+.ticker{background:var(--gold);overflow:hidden;padding:9px 0}
+.ticker-inner{display:inline-flex;white-space:nowrap;animation:scroll 42s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick{font-size:10px;font-weight:500;color:var(--navy);letter-spacing:.09em;text-transform:uppercase;padding:0 26px}
+.tick-sep{color:rgba(15,30,54,.25)}
+/* ═══════════════════════════════════════
+   PAGE: HOME
+═══════════════════════════════════════ */
+.hero{background:var(--navy);padding:80px 48px 68px;display:grid;grid-template-columns:1fr 310px;gap:56px;align-items:center;position:relative;overflow:hidden}
+.hero-bg-lines{position:absolute;top:0;left:0;right:0;bottom:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px);pointer-events:none}
+.hero-wm{position:absolute;right:-20px;bottom:-30px;font-family:var(--serif);font-size:180px;color:rgba(184,145,42,.028);font-weight:700;pointer-events:none;line-height:1;user-select:none}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.hero-eline{width:28px;height:1.5px;background:var(--gold)}
+.hero-etxt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(184,145,42,.7);font-weight:500}
+.hero h1{font-family:var(--serif);font-size:40px;font-weight:600;color:#fff;line-height:1.17;margin-bottom:18px;max-width:540px}
+.hero h1 em{color:var(--gold-lt);font-style:normal}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.48);line-height:1.82;font-weight:300;max-width:480px;margin-bottom:30px}
+.hero-trust{display:flex;flex-direction:column;gap:8px;margin-bottom:30px}
+.hti{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;color:rgba(255,255,255,.4);font-weight:300;line-height:1.5}
+.htd{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:6px;opacity:.75}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-right{z-index:1}
+.hero-identity-card{background:rgba(255,255,255,.04);border:1px solid rgba(184,145,42,.2);padding:26px}
+.hic-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px}
+.hic-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.hic-item:last-child{border-bottom:none;padding-bottom:0}
+.hic-ico{width:28px;height:28px;border:1px solid rgba(184,145,42,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.hic-ico svg{width:13px;height:13px;stroke:var(--gold-lt);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hic-name{font-size:12px;font-weight:500;color:#fff;margin-bottom:2px}
+.hic-desc{font-size:11px;color:rgba(255,255,255,.34);line-height:1.55;font-weight:300}
+/* Pillars */
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.pillar{background:var(--cream);padding:28px 22px;transition:background .2s}
+.pillar:hover{background:var(--white)}
+.pil-ico{width:34px;height:34px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.pil-ico svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pil-title{font-family:var(--serif);font-size:14.5px;font-weight:600;margin-bottom:7px;line-height:1.3;color:var(--navy)}
+.pil-txt{font-size:11.5px;color:var(--muted);line-height:1.65;font-weight:300}
+/* Focus areas */
+.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.fc{border:1px solid rgba(184,145,42,.15);padding:24px 20px;transition:all .2s;cursor:default}
+.fc:hover{border-color:rgba(184,145,42,.4);background:rgba(255,255,255,.04)}
+.fc.feat{border-color:rgba(184,145,42,.32)}
+.fc-num{font-family:var(--serif);font-size:22px;color:rgba(184,145,42,.28);margin-bottom:10px}
+.fc-title{font-size:12.5px;font-weight:500;color:#fff;margin-bottom:6px;line-height:1.3}
+.fc-txt{font-size:11px;color:rgba(255,255,255,.36);line-height:1.65;font-weight:300}
+.badge-core{display:inline-block;margin-top:9px;font-size:9.5px;background:var(--gold);color:var(--navy);padding:2px 9px;letter-spacing:.05em;font-weight:500}
+.badge-active{display:inline-block;margin-top:9px;font-size:9.5px;border:1px solid rgba(184,145,42,.28);color:rgba(184,145,42,.7);padding:2px 9px;letter-spacing:.04em}
+/* Method */
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.ms{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.ms:last-child{border-bottom:none}
+.ms-n{font-family:var(--serif);font-size:20px;color:rgba(184,145,42,.28);min-width:24px;line-height:1.1;flex-shrink:0}
+.ms-title{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.ms-txt{font-size:11.5px;color:var(--muted);line-height:1.65;font-weight:300}
+.mc-box{background:var(--navy);padding:28px}
+.mc-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.mc-pull{border-left:2px solid var(--gold);padding-left:18px;margin:14px 0}
+.mc-pull-txt{font-family:var(--serif);font-size:15px;color:rgba(255,255,255,.62);font-style:italic;line-height:1.55}
+.mc-para{font-size:12px;color:rgba(255,255,255,.38);line-height:1.72;font-weight:300;margin-bottom:10px}
+.mc-note{background:var(--cream2);border:1px solid var(--border);border-left:3px solid var(--gold);padding:16px 18px;margin-top:14px}
+.mc-note-t{font-size:11.5px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.mc-note-b{font-size:11px;color:var(--muted);line-height:1.65;font-weight:300}
+/* Publications */
+.rep-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.rep-main{background:var(--navy);padding:28px;position:relative;overflow:hidden}
+.rep-main::after{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;border:1px solid rgba(184,145,42,.08);border-radius:50%}
+.rep-tag{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-lt);font-weight:500;margin-bottom:9px}
+.rep-title-lg{font-family:var(--serif);font-size:16px;color:#fff;font-weight:600;line-height:1.38;margin-bottom:9px}
+.rep-meta{font-size:10px;color:rgba(255,255,255,.28)}
+.rep-link{font-size:10px;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;margin-top:12px;display:block;font-weight:500}
+.rep-link:hover{color:var(--gold-lt)}
+.rep-sm{background:var(--cream2);border:1px solid var(--border);padding:22px;transition:border-color .2s}
+.rep-sm:hover{border-color:rgba(184,145,42,.35)}
+.rep-sm .rep-tag{color:var(--muted)}
+.rep-title-sm{font-family:var(--serif);font-size:13.5px;color:var(--navy);font-weight:600;line-height:1.35;margin-bottom:7px}
+.rep-meta-sm{font-size:10px;color:var(--muted)}
+/* Escalation */
+.esc-wrap{background:var(--cream2);padding:56px 48px;border-top:1px solid var(--border)}
+.esc-top{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:28px}
+.esc-note{background:var(--navy);padding:22px 24px}
+.esc-note-t{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px}
+.esc-note-b{font-size:12px;color:rgba(255,255,255,.42);line-height:1.7;font-weight:300}
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.ch{background:var(--cream);padding:26px 22px;transition:background .2s}
+.ch:hover{background:var(--white)}
+.ch-step{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.ch-title{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:9px;line-height:1.3;color:var(--navy)}
+.ch-txt{font-size:11.5px;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:14px}
+.ch-tags{display:flex;flex-wrap:wrap;gap:5px}
+.ch-tag{font-size:10px;background:var(--navy);color:rgba(255,255,255,.6);padding:3px 9px;letter-spacing:.04em}
+.ch-tag-lt{font-size:10px;border:1px solid var(--border);color:var(--muted);padding:3px 9px}
+/* Advisory */
+.adv-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(184,145,42,.28);padding:4px 13px;margin-bottom:14px}
+.adv-pill-d{width:6px;height:6px;border-radius:50%;border:1.5px solid var(--gold-lt)}
+.adv-pill-t{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(184,145,42,.75)}
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.adv-quote-box{border-left:2px solid var(--gold);padding-left:20px;margin-bottom:20px}
+.adv-q{font-family:var(--serif);font-size:16px;color:rgba(255,255,255,.58);font-style:italic;line-height:1.55;margin-bottom:7px}
+.adv-cite{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.adv-why-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:20px}
+.adv-why-t{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.adv-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.adv-row:last-child{border-bottom:none;padding-bottom:0}
+.adv-n{font-family:var(--serif);font-size:18px;color:rgba(184,145,42,.28);min-width:20px;line-height:1;flex-shrink:0}
+.adv-rt{font-size:11px;font-weight:500;color:#fff;margin-bottom:2px}
+.adv-rb{font-size:10.5px;color:rgba(255,255,255,.32);line-height:1.55;font-weight:300}
+/* CSR strip */
+.csr-strip{background:var(--cream);border-top:1px solid var(--border);padding:28px 48px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.csr-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.ctag{font-size:10px;border:1px solid var(--border);padding:4px 11px;color:var(--muted)}
+.ctag.y{border-color:var(--green);color:var(--green);background:var(--green-bg)}
+/* INTL strip */
+.intl-strip{background:var(--navy);padding:18px 48px;display:flex;align-items:center;gap:30px;border-top:1px solid rgba(184,145,42,.12)}
+.intl-lbl{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(184,145,42,.5);white-space:nowrap;font-weight:500}
+.intl-sep{width:1px;height:20px;background:rgba(255,255,255,.1)}
+.intl-items{display:flex;gap:22px;flex-wrap:wrap}
+.intl-it{font-size:11px;color:rgba(255,255,255,.26)}
+/* CTA bar */
+.cta-bar{background:var(--gold);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;gap:28px}
+.cta-title{font-family:var(--serif);font-size:20px;color:var(--navy);font-weight:600}
+.cta-sub{font-size:11.5px;color:rgba(15,30,54,.55);margin-top:3px;font-weight:300;max-width:500px;line-height:1.55}
+/* ═══════════════════════════════════════
+   PAGE: ABOUT
+═══════════════════════════════════════ */
+.about-hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden}
+.about-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px);pointer-events:none}
+.about-hero h1{font-family:var(--serif);font-size:42px;font-weight:600;color:#fff;line-height:1.18;max-width:600px;margin-bottom:16px;position:relative}
+.about-hero h1 em{color:var(--gold-lt);font-style:normal}
+.about-hero-sub{font-size:13px;color:rgba(255,255,255,.45);font-weight:300;line-height:1.8;max-width:520px;position:relative}
+.mission-band{background:var(--gold);padding:28px 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.mb-item{padding:0 24px}
+.mb-item:first-child{padding-left:0}
+.mb-sep{width:1px;background:rgba(15,30,54,.18)}
+.mb-label{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(15,30,54,.55);font-weight:500;margin-bottom:5px}
+.mb-value{font-family:var(--serif);font-size:13.5px;color:var(--navy);font-weight:600;line-height:1.4}
+.founding-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.timeline{position:relative;padding-left:28px;margin-top:20px}
+.timeline::before{content:'';position:absolute;left:4px;top:10px;bottom:10px;width:1.5px;background:linear-gradient(to bottom,var(--gold),rgba(184,145,42,.1))}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;left:-28px;width:10px;height:10px;background:var(--gold);top:4px;border:2px solid var(--cream)}
+.tl-year{font-family:var(--mono);font-size:10px;color:var(--gold);font-weight:500;letter-spacing:.06em;margin-bottom:2px}
+.tl-txt{font-size:12px;color:var(--navy);line-height:1.6;font-weight:300}
+.tl-txt strong{font-weight:500;color:var(--navy)}
+.cred-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:20px}
+.cred-item{background:var(--cream);padding:20px}
+.cred-val{font-family:var(--serif);font-size:28px;color:var(--gold);font-weight:600;line-height:1}
+.cred-label{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;line-height:1.5}
+.gap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.gap-item{border:1px solid var(--border);padding:22px 20px}
+.gap-num{font-family:var(--serif);font-size:20px;color:rgba(184,145,42,.3);margin-bottom:8px}
+.gap-title{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.gap-txt{font-size:11.5px;color:var(--muted);line-height:1.65;font-weight:300}
+.expertise-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:24px}
+.exp-item{background:var(--white);padding:14px 16px;font-size:11.5px;color:var(--navy);border-bottom:2px solid transparent;transition:border-color .2s}
+.exp-item:hover{border-color:var(--gold)}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+.val-item{background:var(--navy);padding:22px 20px}
+.val-num{font-family:var(--serif);font-size:22px;color:rgba(184,145,42,.28);margin-bottom:10px}
+.val-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:5px}
+.val-txt{font-size:11px;color:rgba(255,255,255,.38);line-height:1.65;font-weight:300}
+/* ═══════════════════════════════════════
+   PAGE: RESEARCH
+═══════════════════════════════════════ */
+.research-hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden}
+.research-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:repeating-linear-gradient(135deg,transparent,transparent 59px,rgba(184,145,42,.03) 59px,rgba(184,145,42,.03) 60px);pointer-events:none}
+.research-hero h1{font-family:var(--serif);font-size:40px;font-weight:600;color:#fff;max-width:580px;line-height:1.18;margin-bottom:14px;position:relative}
+.research-hero h1 em{color:var(--gold-lt);font-style:normal}
+.rh-sub{font-size:13px;color:rgba(255,255,255,.44);font-weight:300;line-height:1.78;max-width:480px;position:relative}
+.method-full{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:28px}
+.mf-item{background:var(--cream);padding:26px 24px;transition:background .2s}
+.mf-item:hover{background:var(--white)}
+.mf-n{font-family:var(--serif);font-size:32px;color:rgba(184,145,42,.2);margin-bottom:10px;line-height:1}
+.mf-title{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.mf-txt{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+.src-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:24px}
+.src-item{background:var(--white);padding:18px 20px}
+.src-icon{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:5px}
+.src-name{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.src-desc{font-size:11px;color:var(--muted);font-weight:300;line-height:1.55}
+.core-prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:24px}
+.cp-item{background:var(--navy);padding:28px 26px}
+.cp-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px}
+.cp-title{font-family:var(--serif);font-size:17px;color:#fff;font-weight:600;margin-bottom:8px;line-height:1.3}
+.cp-txt{font-size:12px;color:rgba(255,255,255,.4);line-height:1.72;font-weight:300}
+.cp-detail{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.cp-bullets{list-style:none}
+.cp-bullets li{font-size:11px;color:rgba(255,255,255,.3);padding:4px 0;padding-left:14px;position:relative;font-weight:300;line-height:1.55}
+.cp-bullets li::before{content:'—';position:absolute;left:0;color:rgba(184,145,42,.4);font-size:10px}
+.patterns-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+.pat-item{border:1px solid var(--border);padding:22px 20px;background:var(--white)}
+.pat-title{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.pat-txt{font-size:11.5px;color:var(--muted);line-height:1.65;font-weight:300}
+/* ═══════════════════════════════════════
+   PAGE: SUBMISSIONS TRACKER
+═══════════════════════════════════════ */
+.tracker-layout{display:grid;grid-template-columns:240px 1fr;min-height:500px}
+.tracker-sidebar{background:var(--navy);padding:28px 24px}
+.ts-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+.ts-section{margin-bottom:20px}
+.ts-section-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:500;margin-bottom:8px}
+.ts-filter{display:flex;align-items:center;gap:8px;padding:7px 0;cursor:pointer;font-size:11.5px;color:rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s}
+.ts-filter:hover,.ts-filter.active{color:rgba(255,255,255,.88)}
+.ts-filter-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ts-search{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:8px 10px;width:100%;color:#fff;font-family:var(--body-font);font-size:11.5px;margin-bottom:14px;outline:none}
+.ts-search::placeholder{color:rgba(255,255,255,.25)}
+.tracker-main{background:var(--cream);padding:28px 32px}
+.tm-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.tm-count{font-size:12px;color:var(--muted)}
+.redaction-note{background:var(--cream2);border:1px solid var(--border);border-left:3px solid var(--gold);padding:12px 16px;margin-bottom:20px;font-size:11px;color:var(--muted);line-height:1.55}
+.sub-card{background:var(--white);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.sub-card:hover{border-color:rgba(184,145,42,.3)}
+.sub-card-header{padding:16px 20px;display:flex;align-items:center;gap:16px;cursor:pointer}
+.sub-id{font-family:var(--mono);font-size:10px;color:var(--gold);font-weight:500;white-space:nowrap;min-width:120px}
+.sub-title-wrap{flex:1}
+.sub-title{font-size:13px;font-weight:500;color:var(--navy);line-height:1.3;margin-bottom:3px}
+.sub-meta{font-size:10.5px;color:var(--muted)}
+.sub-status{font-size:10px;padding:3px 10px;letter-spacing:.04em;white-space:nowrap;font-weight:500}
+.s-gov{background:rgba(184,145,42,.12);color:#8a6a18;border:1px solid rgba(184,145,42,.25)}
+.s-filed{background:rgba(30,80,150,.1);color:#1a4a8a;border:1px solid rgba(30,80,150,.2)}
+.s-await{background:rgba(180,120,20,.1);color:#7a5010;border:1px solid rgba(180,120,20,.2)}
+.s-recv{background:rgba(45,106,79,.1);color:var(--green);border:1px solid rgba(45,106,79,.2)}
+.s-esc{background:rgba(120,30,30,.1);color:var(--red-soft);border:1px solid rgba(120,30,30,.18)}
+.sub-expand{width:20px;height:20px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--muted);transition:all .2s}
+.sub-card.open .sub-expand{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sub-body{display:none;padding:0 20px 18px;border-top:1px solid var(--border);margin-top:0}
+.sub-body.show{display:block}
+.sub-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.sd-item{}
+.sd-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:3px}
+.sd-value{font-size:12px;color:var(--navy)}
+.act-log{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.al-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px}
+.al-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:11.5px}
+.al-item:last-child{border-bottom:none}
+.al-date{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:90px;padding-top:2px}
+.al-event{color:var(--navy);line-height:1.5}
+.sub-object{margin-top:12px;background:var(--cream2);border-left:2px solid var(--gold);padding:10px 14px;font-size:11px;color:var(--muted);line-height:1.55}
+/* ═══════════════════════════════════════
+   PAGE: ADVISORY COUNCIL
+═══════════════════════════════════════ */
+.advisory-hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden}
+.advisory-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px);pointer-events:none}
+.advisory-hero h1{font-family:var(--serif);font-size:40px;font-weight:600;color:#fff;line-height:1.18;max-width:580px;margin-bottom:14px;position:relative}
+.advisory-hero h1 em{color:var(--gold-lt);font-style:normal}
+.ah-sub{font-size:13px;color:rgba(255,255,255,.44);font-weight:300;line-height:1.78;max-width:480px;position:relative}
+.domain-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:24px}
+.domain-item{background:var(--cream);padding:18px 16px}
+.dom-n{font-family:var(--serif);font-size:16px;color:rgba(184,145,42,.28);margin-bottom:5px;line-height:1}
+.dom-t{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.dom-d{font-size:11px;color:var(--muted);font-weight:300;line-height:1.5}
+.gov-structure{background:var(--navy);padding:28px 30px;margin-top:24px}
+.gs-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.gs-items{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.gs-item{background:var(--navy2);padding:16px}
+.gs-it{font-size:12px;font-weight:500;color:#fff;margin-bottom:4px}
+.gs-ib{font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;font-weight:300}
+.eoi-form{background:var(--cream);padding:40px 48px}
+.eoi-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:640px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);font-weight:500}
+.form-input{background:var(--white);border:1px solid var(--border);padding:10px 14px;font-family:var(--body-font);font-size:13px;color:var(--navy);outline:none;transition:border-color .2s}
+.form-input:focus{border-color:var(--gold)}
+.form-group.full{grid-column:1/-1}
+.form-textarea{resize:vertical;min-height:90px}
+/* ═══════════════════════════════════════
+   PAGE: CSR & FUNDING
+═══════════════════════════════════════ */
+.csr-hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden}
+.csr-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px);pointer-events:none}
+.csr-hero h1{font-family:var(--serif);font-size:40px;font-weight:600;color:#fff;max-width:560px;line-height:1.18;margin-bottom:14px;position:relative}
+.csr-hero h1 em{color:var(--gold-lt);font-style:normal}
+.csrh-sub{font-size:13px;color:rgba(255,255,255,.44);font-weight:300;line-height:1.78;max-width:460px;position:relative}
+.elig-table{width:100%;border-collapse:collapse;margin-top:24px}
+.elig-table th{background:var(--navy);color:var(--gold);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;padding:11px 16px;text-align:left;font-family:var(--body-font)}
+.elig-table td{padding:12px 16px;font-size:12.5px;border-bottom:1px solid var(--border);vertical-align:top}
+.elig-table tr:last-child td{border-bottom:none}
+.elig-table tr:hover td{background:var(--cream2)}
+.elig-y{color:var(--green);font-weight:500}
+.elig-p{color:#8a6a18;font-weight:500}
+.schvii-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.schvii-item{border:1px solid var(--border);padding:20px;background:var(--white)}
+.schvii-title{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.schvii-txt{font-size:11px;color:var(--muted);line-height:1.6;font-weight:300}
+.csr-process{display:flex;gap:0;margin-top:24px}
+.csr-step{flex:1;padding:22px 20px;background:var(--navy);position:relative}
+.csr-step:not(:last-child)::after{content:'›';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:18px;z-index:1}
+.csr-step-n{font-family:var(--serif);font-size:20px;color:rgba(184,145,42,.28);margin-bottom:7px;line-height:1}
+.csr-step-t{font-size:12px;font-weight:500;color:#fff;margin-bottom:4px;line-height:1.3}
+.csr-step-b{font-size:10.5px;color:rgba(255,255,255,.32);line-height:1.55;font-weight:300}
+.fund-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:24px}
+.fund-item{background:var(--cream);padding:20px}
+.fund-pct{font-family:var(--serif);font-size:26px;color:var(--gold);font-weight:600;margin-bottom:4px}
+.fund-label{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.fund-desc{font-size:11px;color:var(--muted);font-weight:300;line-height:1.55}
+/* ═══════════════════════════════════════
+   PAGE: SUBMIT INFORMATION
+═══════════════════════════════════════ */
+.submit-hero{background:var(--navy);padding:72px 48px;position:relative;overflow:hidden}
+.submit-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,145,42,.04) 59px,rgba(184,145,42,.04) 60px);pointer-events:none}
+.submit-hero h1{font-family:var(--serif);font-size:40px;font-weight:600;color:#fff;max-width:560px;line-height:1.18;margin-bottom:14px;position:relative}
+.submit-hero h1 em{color:var(--gold-lt);font-style:normal}
+.subh-sub{font-size:13px;color:rgba(255,255,255,.44);font-weight:300;line-height:1.78;max-width:460px;position:relative}
+.anon-note{background:rgba(184,145,42,.12);border:1px solid rgba(184,145,42,.25);padding:14px 18px;margin-top:18px;font-size:12px;color:var(--gold-pale);line-height:1.55;position:relative}
+.submit-form-wrap{padding:48px;display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
+.step-indicator{display:flex;gap:0;margin-bottom:28px}
+.step-ind{flex:1;padding:12px 14px;background:var(--cream2);border-bottom:2px solid var(--border);font-size:11px;color:var(--muted);transition:all .2s;cursor:pointer;border-right:1px solid var(--border)}
+.step-ind:last-child{border-right:none}
+.step-ind.active{background:var(--white);border-bottom-color:var(--gold);color:var(--navy);font-weight:500}
+.step-ind.done{border-bottom-color:var(--green);color:var(--green)}
+.step-n{font-family:var(--mono);font-size:9.5px;color:inherit;display:block;margin-bottom:1px;opacity:.6;letter-spacing:.05em}
+.form-step{display:none}
+.form-step.active{display:block}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.type-card{border:1px solid var(--border);padding:18px 16px;cursor:pointer;transition:all .2s}
+.type-card:hover{border-color:rgba(184,145,42,.35);background:var(--cream2)}
+.type-card.selected{border-color:var(--gold);background:rgba(184,145,42,.06)}
+.tc-title{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.tc-txt{font-size:11px;color:var(--muted);font-weight:300;line-height:1.5}
+.submit-sidebar{background:var(--navy);padding:24px}
+.ss-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.ss-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.ss-item:last-child{border-bottom:none;padding-bottom:0}
+.ss-n{font-family:var(--serif);font-size:16px;color:rgba(184,145,42,.28);min-width:18px;line-height:1;flex-shrink:0}
+.ss-t{font-size:11.5px;font-weight:500;color:#fff;margin-bottom:2px}
+.ss-b{font-size:10.5px;color:rgba(255,255,255,.3);line-height:1.55;font-weight:300}
+.form-btns{display:flex;gap:10px;margin-top:24px}
+.success-screen{display:none;text-align:center;padding:48px 24px}
+.success-screen.show{display:block}
+.success-icon{width:56px;height:56px;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success-icon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.footer{background:var(--navy);padding:44px 48px 24px;border-top:2px solid rgba(184,145,42,.2)}
+.ft-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:28px}
+.ft-name{font-family:var(--serif);font-size:13.5px;color:#fff;font-weight:600;margin-bottom:2px}
+.ft-acr{font-size:9px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.ft-desc{font-size:11px;color:rgba(255,255,255,.25);line-height:1.65;font-weight:300;max-width:230px}
+.ft-col h4{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:13px}
+.ft-col a{display:block;font-size:11px;color:rgba(255,255,255,.32);cursor:pointer;margin-bottom:7px;transition:color .2s}
+.ft-col a:hover{color:rgba(255,255,255,.7)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.ft-copy{font-size:10px;color:rgba(255,255,255,.18)}
+.ft-tags{display:flex;gap:14px}
+.ft-tag{font-size:9px;color:rgba(255,255,255,.18);letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:5px}
+.ft-tag-d{width:3px;height:3px;background:var(--gold);opacity:.35;border-radius:50%}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══════════════════════ -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-seal"><span class="nav-seal-txt">TEF</span></div>
+    <div class="nav-brand">
+      <span class="nav-short">TEF</span>
+      <span class="nav-long">Trade Ethics Forum</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="showPage('research')">Research</button>
+    <button class="nav-link" onclick="showPage('tracker')">Regulatory Actions</button>
+    <button class="nav-link" onclick="showPage('advisory')">Advisory Council</button>
+    <button class="nav-link" onclick="showPage('about')">About</button>
+    <button class="nav-link" onclick="showPage('csr')">CSR &amp; Funding</button>
+  </div>
+  <button class="nav-cta" onclick="showPage('submit')">Submit Information</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-lines"></div>
+    <div class="hero-wm">TEF</div>
+    <div style="z-index:1">
+      <div class="hero-eyebrow"><div class="hero-eline"></div><span class="hero-etxt">Independent Research · Public Interest · Section 8 Not-for-Profit</span></div>
+      <h1>An Independent Research and Regulatory Engagement Institution for <em>Corporate Governance</em> and Compliance</h1>
+      <p class="hero-sub">TEF analyses adjudication orders issued by Indian regulatory authorities to determine whether the conduct giving rise to a finding discloses additional violations of Indian law or of the laws of the jurisdictions in which the corporate body operates. Where such violations are identified, TEF brings the matter to the attention of the relevant authorities, domestic and international, through structured, evidence-based engagement.</p>
+      <div class="hero-trust">
+        <div class="hti"><div class="htd"></div>All analysis grounded in public adjudication records and company disclosures.</div>
+        <div class="hti"><div class="htd"></div>Findings referred to competent authorities, domestic and international, in accordance with law.</div>
+        <div class="hti"><div class="htd"></div>All activities undertaken in good faith in furtherance of public interest.</div>
+      </div>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="showPage('research')">Our Research Method</button>
+        <button class="btn-ghost" onclick="showPage('tracker')">View Regulatory Actions</button>
+      </div>
+    </div>
+    <div style="z-index:1">
+      <div class="hero-identity-card">
+        <div class="hic-title">What kind of institution is TEF?</div>
+        <div class="hic-item">
+          <div class="hic-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div><div class="hic-name">Research institution</div><p class="hic-desc">We study public adjudication orders, regulatory records and company disclosures and publish our findings in the public interest.</p></div>
+        </div>
+        <div class="hic-item">
+          <div class="hic-ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+          <div><div class="hic-name">Regulatory engagement body</div><p class="hic-desc">Where findings disclose additional violations, we formally notify the corporate body and afford an opportunity to respond before escalating to the relevant regulatory authorities.</p></div>
+        </div>
+        <div class="hic-item">
+          <div class="hic-ico"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+          <div><div class="hic-name">Intermediary support body</div><p class="hic-desc">Where systemic compliance failures by corporate bodies create downstream harm to intermediaries and service providers, TEF supports their legitimate interests and professional integrity in regulated sectors.</p></div>
+        </div>
+        <div class="hic-item">
+          <div class="hic-ico"><svg viewBox="0 0 24 24"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div>
+          <div><div class="hic-name">Public interest organisation</div><p class="hic-desc">Where research warrants it, we make representations to competent authorities, domestic and international, always in accordance with law.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker"><div class="ticker-inner">
+    <span class="tick">Corporate Governance</span><span class="tick-sep"> · </span>
+    <span class="tick">Governance Integrity</span><span class="tick-sep"> · </span>
+    <span class="tick">Responsible Business Conduct</span><span class="tick-sep"> · </span>
+    <span class="tick">Public Revenue Protection</span><span class="tick-sep"> · </span>
+    <span class="tick">Corporate Accountability</span><span class="tick-sep"> · </span>
+    <span class="tick">Independent Research</span><span class="tick-sep"> · </span>
+    <span class="tick">Intermediary Protection</span><span class="tick-sep"> · </span>
+    <span class="tick">Disclosure Integrity</span><span class="tick-sep"> · </span>
+    <span class="tick">Ethical Business Conduct</span><span class="tick-sep"> · </span>
+    <span class="tick">Corporate Governance</span><span class="tick-sep"> · </span>
+    <span class="tick">Governance Integrity</span><span class="tick-sep"> · </span>
+    <span class="tick">Responsible Business Conduct</span><span class="tick-sep"> · </span>
+    <span class="tick">Public Revenue Protection</span><span class="tick-sep"> · </span>
+    <span class="tick">Corporate Accountability</span><span class="tick-sep"> · </span>
+    <span class="tick">Independent Research</span><span class="tick-sep"> · </span>
+    <span class="tick">Intermediary Protection</span><span class="tick-sep"> · </span>
+    <span class="tick">Disclosure Integrity</span><span class="tick-sep"> · </span>
+    <span class="tick">Ethical Business Conduct</span><span class="tick-sep"> · </span>
+  </div></div>
+
+  <!-- FOUR PILLARS -->
+  <div class="section-wrap">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">What We Do</span></div>
+    <div class="stitle">Four Dimensions of TEF's Work</div>
+    <p class="ssub" style="max-width:520px;margin-bottom:28px">TEF operates as a research institution first publishing analysis grounded in public records and as an institutional participant in regulatory and governance processes where the research warrants it.</p>
+    <div class="pillars-grid">
+      <div class="pillar"><div class="pil-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="pil-title">Independent Research</div><p class="pil-txt">Systematic analysis of public adjudication records cross-referenced against company disclosures identifying where characterisations made before Indian authorities are inconsistent with the same group's own public statements.</p></div>
+      <div class="pillar"><div class="pil-ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="pil-title">Governance Engagement</div><p class="pil-txt">Where research identifies governance concerns, Where findings disclose additional violations, TEF formally notifies the corporate body and affords an opportunity to respond before escalating to the relevant regulatory authorities.</p></div>
+      <div class="pillar"><div class="pil-ico"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="pil-title">Intermediary Support</div><p class="pil-txt">Supporting Custom House Agents, freight forwarders and trade professionals whose professional integrity or livelihood is affected by systemic compliance failures by corporate bodies a core registered object of TEF.</p></div>
+      <div class="pillar"><div class="pil-ico"><svg viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div><div class="pil-title">Publications &amp; Policy</div><p class="pil-txt">Research reports, policy briefs, governance assessments and compliance notes published for regulators, financial institutions, trade professionals and the wider public.</p></div>
+    </div>
+  </div>
+
+  <!-- FOCUS AREAS -->
+  <div class="section-wrap-dark">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Focus Areas</span></div>
+    <div class="stitle" style="color:#fff">What TEF Researches</div>
+    <p class="ssub" style="color:rgba(255,255,255,.42);max-width:520px">Specific areas where the interface between intercompany arrangements, customs characterisations and public disclosures raises governance questions of public interest.</p>
+    <div class="focus-grid">
+      <div class="fc feat"><div class="fc-num">01</div><div class="fc-title">Customs Valuation Intercompany Payment Characterisation</div><p class="fc-txt">How corporate bodies characterise franchise fees, royalties and management charges for customs assessable value and whether those characterisations are consistent with the group's own public functional disclosures.</p><span class="badge-core">Core Programme</span></div>
+      <div class="fc feat"><div class="fc-num">02</div><div class="fc-title">Functional Allocation Inconsistency</div><p class="fc-txt">Identifying where a company's characterisation of group functions before Indian customs or tax authorities appears inconsistent with the same group's public descriptions of its own structure and entity roles.</p><span class="badge-core">Core Programme</span></div>
+      <div class="fc"><div class="fc-num">03</div><div class="fc-title">SVB Proceedings Disclosure Completeness</div><p class="fc-txt">Whether material facts, agreements and group arrangements were fully and accurately disclosed to Indian customs authorities during Special Valuation Branch review.</p><span class="badge-active">Active Research</span></div>
+      <div class="fc"><div class="fc-num">04</div><div class="fc-title">Transfer Pricing &amp; Customs Interface</div><p class="fc-txt">Cases where the same intercompany payment is characterised differently for transfer pricing versus customs valuation a risk area that has attracted international regulatory scrutiny.</p><span class="badge-active">Active Research</span></div>
+      <div class="fc"><div class="fc-num">05</div><div class="fc-title">Intermediary Professional Harm</div><p class="fc-txt">Cases where licensed CHAs and trade professionals face regulatory proceedings in circumstances where the underlying non-compliance originated with the corporate principal, not the professional.</p><span class="badge-active">Active Research</span></div>
+      <div class="fc"><div class="fc-num">06</div><div class="fc-title">ESG &amp; BRSR Disclosure Integrity</div><p class="fc-txt">Material discrepancies between ESG commitments and BRSR disclosures made by listed entities and independently verifiable compliance data from regulatory records and databases.</p><span class="badge-active">Active Research</span></div>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Our Method</span></div>
+    <div class="stitle">How TEF Reaches Its Findings</div>
+    <p class="ssub" style="max-width:520px;margin-bottom:28px">TEF's analytical approach is grounded in practitioner knowledge of how characterisation patterns between regulatory records and public disclosures first emerged when India's trade opened in the 1990s, giving TEF a reading fluency that research institutions and law firms alone cannot replicate.</p>
+    <div class="method-grid">
+      <div>
+        <div class="ms"><div class="ms-n">01</div><div><div class="ms-title">Read the public adjudication order</div><p class="ms-txt">Customs adjudication orders are public documents. They record positions companies took before authorities often reproducing the company's own group structure descriptions within the same record.</p></div></div>
+        <div class="ms"><div class="ms-n">02</div><div><div class="ms-title">Read the company's own public disclosures</div><p class="ms-txt">Annual reports, BRSR filings, investor presentations and group structure descriptions are public. We read what the company tells the public about how it is organised and how its entities function.</p></div></div>
+        <div class="ms"><div class="ms-n">03</div><div><div class="ms-title">Map any inconsistency</div><p class="ms-txt">Where the position recorded before an authority cannot be reconciled with the group's own public functional descriptions, that gap is the governance concern documented, sourced, ready for institutional engagement.</p></div></div>
+        <div class="ms"><div class="ms-n">04</div><div><div class="ms-title">Engage the corporate body first</div><p class="ms-txt">TEF's first step is always a governance review request to the corporate body requesting internal verification of facts and controls. This is a governance question, not a legal allegation.</p></div></div>
+        <div class="ms"><div class="ms-n">05</div><div><div class="ms-title">Where necessary, engage competent authorities</div><p class="ms-txt">Where a company's response is inadequate or absent, TEF submits documented research findings to relevant statutory authorities, financial institutions or courts always in accordance with law.</p></div></div>
+      </div>
+      <div>
+        <div class="mc-box">
+          <div class="mc-title">Why public-record analysis matters</div>
+          <p class="mc-para">TEF does not rely on leaked documents, confidential information or insider disclosures. Every finding is based on what is already publicly available.</p>
+          <div class="mc-pull"><p class="mc-pull-txt">"These characterisation patterns emerged when India's trade opened in the 1990s. We were practising then. We read what was recorded and we read what the same companies said about themselves elsewhere."</p></div>
+          <p class="mc-para">This means TEF's analysis cannot be challenged on grounds of confidentiality breach or misuse of insider information. The source is always a public document.</p>
+        </div>
+        <div class="mc-note">
+          <div class="mc-note-t">Good faith a registered obligation</div>
+          <p class="mc-note-b">All TEF research and submissions are undertaken in good faith, based on information reasonably believed to be accurate, and solely in furtherance of TEF's registered public interest objects as recorded in Trade Ethics Forum's Memorandum of Association filed with the Registrar of Companies under the Companies Act, 2013.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="section-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px">
+      <div><div class="lrow"><div class="lbar"></div><span class="ltxt">Publications</span></div><div class="stitle" style="margin-bottom:0">Latest Research &amp; Reports</div></div>
+      <span style="font-size:10px;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;font-weight:500">View all ›</span>
+    </div>
+    <div class="rep-grid">
+      <div class="rep-main"><div class="rep-tag">Featured Report</div><div class="rep-title-lg">Intercompany Payment Characterisation in India Customs Proceedings: Patterns, Inconsistencies and Governance Questions</div><div class="rep-meta">March 2025 · Customs Valuation · 48 pages</div><a class="rep-link">Download PDF ›</a></div>
+      <div class="rep-sm"><div class="rep-tag">Policy Brief</div><div class="rep-title-sm">SVB Disclosure Standards: What India Customs Adjudication Records Reveal</div><div class="rep-meta-sm">February 2025 · Trade Compliance</div><a class="rep-link">Read ›</a></div>
+      <div class="rep-sm"><div class="rep-tag">Compliance Note</div><div class="rep-title-sm">Customs Broker Liability Where Principal Non-Compliance: A Regulatory Review</div><div class="rep-meta-sm">January 2025 · Intermediaries</div><a class="rep-link">Read ›</a></div>
+    </div>
+  </div>
+
+  <!-- ESCALATION -->
+  <div class="esc-wrap">
+    <div class="esc-top">
+      <div><div class="lrow"><div class="lbar"></div><span class="ltxt">Where Research Leads</span></div><div class="stitle">When and How TEF Engages Authorities</div><p class="ssub" style="max-width:440px">Regulatory and institutional engagement is the outcome of research not the starting point. TEF follows a defined sequence: company first, then regulatory submission where necessary, then judicial or financial escalation where warranted.</p></div>
+      <div class="esc-note"><div class="esc-note-t">The sequencing principle</div><p class="esc-note-b">TEF goes to the company before going to any authority. A governance review request is always the first step giving the company the opportunity to verify facts and self-correct. Only where the response is inadequate does TEF escalate externally. This produces a documented record of prior notice that strengthens any subsequent regulatory or judicial engagement.</p></div>
+    </div>
+    <div class="ch-grid">
+      <div class="ch"><div class="ch-step">Step 01 Always first</div><div class="ch-title">Governance review request to the company</div><p class="ch-txt">A structured letter to company leadership board, legal or compliance identifying the governance concern and requesting internal review of factual accuracy, sign-off controls and oversight standards. This is not a legal notice. It is a governance inquiry.</p><div class="ch-tags"><span class="ch-tag-lt">Board / Compliance</span><span class="ch-tag-lt">Legal counsel</span><span class="ch-tag-lt">Internal audit</span></div></div>
+      <div class="ch"><div class="ch-step">Step 02 Where response is inadequate</div><div class="ch-title">Regulatory authority submission</div><p class="ch-txt">Documented representations to statutory authorities responsible for the relevant compliance domain based entirely on public records and in furtherance of TEF's registered objects. The prior formal governance notice provides context and evidences good faith process.</p><div class="ch-tags"><span class="ch-tag">DRI</span><span class="ch-tag">CBIC</span><span class="ch-tag">SEBI</span><span class="ch-tag">SFIO</span><span class="ch-tag">Income Tax</span></div></div>
+      <div class="ch"><div class="ch-step">Step 03 Where further warranted</div><div class="ch-title">Financial system or judicial engagement</div><p class="ch-txt">Governance risk memoranda to lenders, investors and credit agencies, or PIL filings and writ petitions before courts where the matter is of sufficient public interest and regulatory action alone has proven insufficient.</p><div class="ch-tags"><span class="ch-tag">Banks &amp; lenders</span><span class="ch-tag">Courts</span><span class="ch-tag">OECD RBC</span></div></div>
+    </div>
+  </div>
+
+  <!-- ADVISORY -->
+  <div class="section-wrap-dark" style="background:var(--navy2)">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Advisory Council</span></div>
+    <div class="adv-pill"><div class="adv-pill-d"></div><span class="adv-pill-t">Constituting Founding Members Being Invited</span></div>
+    <div class="adv-grid">
+      <div>
+        <div class="stitle" style="color:#fff;margin-bottom:8px">Independent Advisory Council Being Constituted</div>
+        <p class="ssub" style="color:rgba(255,255,255,.42);margin-bottom:20px">TEF is inviting distinguished professionals in law, trade, corporate governance, public policy and finance to serve as founding Advisory Council members in an honorary, non-executive capacity.</p>
+        <button class="btn-gold" onclick="showPage('advisory')">Expression of Interest</button>
+      </div>
+      <div>
+        
+        <div class="adv-why-box">
+          <div class="adv-why-t">Why the Advisory Council matters</div>
+          <div class="adv-row"><div class="adv-n">1</div><div><div class="adv-rt">Strengthens PIL locus standi</div><p class="adv-rb">Expert institutional oversight substantiates public interest standing under Articles 32 and 226.</p></div></div>
+          <div class="adv-row"><div class="adv-n">2</div><div><div class="adv-rt">Elevates regulatory submissions</div><p class="adv-rb">Institutionally reviewed findings carry greater weight before DRI, SEBI and SFIO.</p></div></div>
+          <div class="adv-row"><div class="adv-n">3</div><div><div class="adv-rt">Protects against motive allegations</div><p class="adv-rb">Institutionally vetted research is significantly harder for corporates to characterise as motivated.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSR STRIP -->
+  <div class="csr-strip">
+    <div>
+      <div class="lrow"><div class="lbar"></div><span class="ltxt">CSR &amp; Funding</span></div>
+      <div class="stitle" style="font-size:18px;margin-bottom:3px">Eligible for CSR Contributions under Schedule VII</div>
+      <p class="ssub" style="font-size:12px;max-width:480px">TEF is a Section 8 company and eligible recipient of CSR contributions. Companies with CSR obligations may direct funds to TEF's governance research and public interest activities.</p>
+      <div class="csr-tags">
+        <span class="ctag y">Section 8 Company</span><span class="ctag y">Schedule VII Eligible</span><span class="ctag">80G Application in Process</span><span class="ctag y">Utilisation Reports Provided</span><span class="ctag y">No Member Distribution</span>
+      </div>
+    </div>
+    <button class="btn-navy" onclick="showPage('csr')">CSR Information</button>
+  </div>
+
+  <!-- INTL STRIP -->
+  <div class="intl-strip">
+    <span class="intl-lbl">International Frameworks</span>
+    <div class="intl-sep"></div>
+    <div class="intl-items">
+      <span class="intl-it">OECD Responsible Business Conduct</span>
+      <span class="intl-it">UN Global Compact</span>
+      <span class="intl-it">FATF Standards</span>
+      <span class="intl-it">WTO Trade Norms</span>
+      <span class="intl-it">Foreign Regulatory Engagement</span>
+    </div>
+  </div>
+
+  <!-- CTA BAR -->
+  <div class="cta-bar">
+    <div><div class="cta-title">Share trade or governance information with TEF</div><p class="cta-sub">TEF welcomes documented information from trade professionals, customs brokers, compliance officers and others with knowledge of customs valuation, SVB proceedings or intercompany arrangement disclosures in strict confidence.</p></div>
+    <button class="btn-navy" onclick="showPage('submit')">Submit Information</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 not-for-profit · Companies Act 2013 · All activities in good faith and in furtherance of public interest · tradeethics.org</p></div>
+      <div class="ft-col"><h4>Research</h4><a onclick="showPage('research')">Reports &amp; Publications</a><a>Policy Briefs</a><a>Compliance Notes</a><a>Governance Assessments</a></div>
+      <div class="ft-col"><h4>Engagement</h4><a onclick="showPage('tracker')">Regulatory Submissions</a><a>PIL &amp; Court Filings</a><a>Financial Institution Alerts</a><a>OECD RBC Mechanism</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('about')">About TEF</a><a onclick="showPage('advisory')">Advisory Council</a><a onclick="showPage('submit')">Submit Information</a><a onclick="showPage('csr')">CSR &amp; Donations</a></div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · Companies Act 2013 · CIN: [pending] · contact@tradeethics.org · tradeethics.org</span>
+      <div class="ft-tags"><div class="ft-tag"><div class="ft-tag-d"></div></div><div class="ft-tag"><div class="ft-tag-d"></div>Good Faith · Public Interest</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">Section 8 Not-for-Profit · Companies Act 2013 · Founded 2025</span></div>
+    <h1>Trade Ethics Forum</h1>
+    <p class="about-hero-sub">Trade Ethics Forum is an independent research and regulatory engagement institution, built to fill a gap that neither law firms nor academics were positioned to fill.</p>
+  </div>
+  <div class="mission-band">
+    <div class="mb-item"><div class="mb-label">Mission</div><div class="mb-value">To promote transparency, accountability and responsible business conduct among corporate bodies operating within India's regulatory framework</div></div>
+    <div class="mb-sep"></div>
+    <div class="mb-item" style="padding:0 24px"><div class="mb-label">Method</div><div class="mb-value">Public-record research, governance engagement and measured institutional action always in good faith, always in accordance with law</div></div>
+    <div class="mb-sep"></div>
+    <div class="mb-item" style="padding-right:0"><div class="mb-label">Mandate</div><div class="mb-value">Registered under Section 8 of the Companies Act 2013 objects filed with, and approved by, the Registrar of Companies</div></div>
+  </div>
+  <!-- ERA: THREE PHASES -->
+  <div style="background:var(--navy);padding:48px 48px 28px">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">The Era TEF Was Built For</span></div>
+    <div class="stitle" style="color:#fff;margin-bottom:8px">Three Phases of India's Trade Barrier Evolution</div>
+    <p class="ssub" style="color:rgba(255,255,255,.42);max-width:620px">TEF's co-founders began practising in 1989 and have practised through every phase of this transformation. The governance gap TEF exists to address was created in Phase 2 and has compounded, unexamined, through Phase 3.</p>
+  </div>
+  <div style="display:flex;gap:0;border-bottom:1px solid var(--border)">
+    <div id="era-ptab1" onclick="eraPhase(1)" style="flex:1;cursor:pointer;padding:16px 20px;background:var(--cream);border-bottom:2.5px solid var(--gold);transition:all .2s"><div style="font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:#c0392b;margin-bottom:3px">Phase 1</div><div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--navy)">The Fortress Economy</div><div style="font-family:var(--mono);font-size:10px;color:var(--muted)">Pre-1991</div></div>
+    <div id="era-ptab2" onclick="eraPhase(2)" style="flex:1;cursor:pointer;padding:16px 20px;background:var(--cream2);border-bottom:2.5px solid transparent;transition:all .2s"><div style="font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:#2980b9;margin-bottom:3px">Phase 2</div><div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--navy)">The Great Liberalisation</div><div style="font-family:var(--mono);font-size:10px;color:var(--muted)">1991 – 2014</div></div>
+    <div id="era-ptab3" onclick="eraPhase(3)" style="flex:1;cursor:pointer;padding:16px 20px;background:var(--cream2);border-bottom:2.5px solid transparent;transition:all .2s"><div style="font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:#27ae60;margin-bottom:3px">Phase 3</div><div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--navy)">The Protectionist Turn</div><div style="font-family:var(--mono);font-size:10px;color:var(--muted)">2014 – Present</div></div>
+  </div>
+  <div id="era-panel1" style="background:var(--white);padding:32px 48px;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+    <div><p style="font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:16px">Before 1991, India operated under strict import substitution. Trade barriers were among the world's highest. Nearly 90% of tradable goods required import licences. The CHA's role was navigating the Licence Raj not valuation complexity. Global MNC structures and intercompany payment characterisation were not yet issues.</p><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#c0392b;line-height:1;margin-bottom:3px">355%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Peak tariff rate, 1990–91</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#c0392b;line-height:1;margin-bottom:3px">~127%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Simple average tariff</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#c0392b;line-height:1;margin-bottom:3px">~90%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Of goods under QRs</div></div></div><div style="font-size:12px;color:var(--navy);font-weight:300;line-height:1.7;border-left:2px solid rgba(192,57,43,.3);padding-left:14px">Consumer goods effectively banned. Essential imports monopolised by state agencies. No MNCs. No intercompany structures. No characterisation questions.</div></div>
+    <div><div style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px">Tariff profile pre-1991</div><div style="display:flex;flex-direction:column;gap:7px"><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">Peak</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:100%;height:100%;background:rgba(192,57,43,.18);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#c0392b">355%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">Avg.</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:36%;height:100%;background:rgba(192,57,43,.12);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#c0392b">127%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">Coll.</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:13%;height:100%;background:rgba(192,57,43,.1);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#c0392b">47%</span></div></div></div></div></div>
+  </div>
+  <div id="era-panel2" style="background:var(--white);padding:32px 48px;display:none;grid-template-columns:1fr 1fr;gap:32px">
+    <div><p style="font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:16px">The 1991 BoP crisis triggered India's liberalisation. Global MNCs entered with complex intercompany structures franchise fees, royalties, management charges that Indian customs valuation law had to absorb. This is the phase that created the governance gap TEF now researches: the same payment characterised one way for customs, described differently in the group's own public disclosures.</p><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#2980b9;line-height:1;margin-bottom:3px">150%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Peak duty after 1991</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#2980b9;line-height:1;margin-bottom:3px">10%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Peak duty by 2007–08</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#2980b9;line-height:1;margin-bottom:3px">13%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Simple avg. MFN by 2014</div></div></div><div style="font-size:12px;color:var(--navy);font-weight:300;line-height:1.75;border-left:2px solid rgba(41,128,185,.3);padding-left:14px"><div style="margin-bottom:5px"><strong style="font-weight:500">1993:</strong> TEF co-founder 2 obtains CHA licence. MNCs entering in volume. SVB absorbs intercompany structures.</div><div style="margin-bottom:5px"><strong style="font-weight:500">2001:</strong> QRs removed on 715 consumer items following WTO ruling.</div><div><strong style="font-weight:500">2008:</strong> Peak duty 10%. Characterisation gap now embedded and growing.</div></div></div>
+    <div><div style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px">Peak tariff decline 1990 to 2014</div><div style="display:flex;flex-direction:column;gap:7px"><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">1990</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:100%;height:100%;background:rgba(41,128,185,.12);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#2980b9">&gt;300%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">1991</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:43%;height:100%;background:rgba(41,128,185,.12);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#2980b9">150%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">1997</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:11%;height:100%;background:rgba(41,128,185,.14);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#2980b9">40%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">2008</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:3%;height:100%;background:rgba(41,128,185,.18);display:flex;align-items:center;padding-left:8px;padding-right:4px"><span style="font-size:10.5px;font-weight:500;color:#2980b9">10%</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">2014</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:4%;height:100%;background:rgba(41,128,185,.18);display:flex;align-items:center;padding-left:8px;padding-right:4px"><span style="font-size:10.5px;font-weight:500;color:#2980b9">13%</span></div></div></div></div><div style="margin-top:14px;background:rgba(41,128,185,.07);border:1px solid rgba(41,128,185,.18);border-left:3px solid #2980b9;padding:12px 14px"><div style="font-size:11px;font-weight:500;color:var(--navy);margin-bottom:3px">Where the governance gap was born</div><p style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.65">MNCs described their group structures one way in annual reports and characterised the same structures narrowly before Indian customs. The SVB was created for this interface. The inconsistencies embedded in this era are what TEF now researches.</p></div></div>
+  </div>
+  <div id="era-panel3" style="background:var(--white);padding:32px 48px;display:none;grid-template-columns:1fr 1fr;gap:32px">
+    <div><p style="font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:16px">Since 2014, India reversed the two-decade liberalisation trend under Make in India and Atmanirbhar Bharat. Tariffs rose. More significantly, Quality Control Orders exploded from 14 in 2014 to 765+ by 2024 adding new complexity on top of the unresolved Phase 2 characterisation problem.</p><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#27ae60;line-height:1;margin-bottom:3px">~17%</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Avg. tariff by 2017–18</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#27ae60;line-height:1;margin-bottom:3px">765+</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Active QCOs by Dec 2024</div></div><div style="flex:1;background:var(--cream2);border:1px solid var(--border);padding:12px 14px"><div style="font-family:var(--serif);font-size:20px;font-weight:600;color:#27ae60;line-height:1;margin-bottom:3px">45</div><div style="font-size:10.5px;color:var(--muted);font-weight:300">Anti-dumping cases in 2023</div></div></div><div style="font-size:12px;color:var(--navy);font-weight:300;line-height:1.75;border-left:2px solid rgba(39,174,96,.3);padding-left:14px"><div style="margin-bottom:5px"><strong style="font-weight:500">2014:</strong> 14 QCOs. <strong style="font-weight:500">2019:</strong> 88 QCOs. <strong style="font-weight:500">2024:</strong> 765+ QCOs foreign goods must be tested by BIS, acting as a structural technical barrier.</div><div>India became one of the world's most active anti-dumping users, primarily targeting imports from China.</div></div></div>
+    <div><div style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px">Quality Control Orders explosive growth</div><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px"><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">2014</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden;display:flex;align-items:center"><div style="width:1.8%;height:100%;background:rgba(39,174,96,.15)"></div><span style="font-size:10.5px;font-weight:500;color:#27ae60;padding-left:6px">14</span></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">2019</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:11.5%;height:100%;background:rgba(39,174,96,.15);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#27ae60">88</span></div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);min-width:38px;text-align:right">2024</div><div style="flex:1;background:var(--cream2);height:22px;overflow:hidden"><div style="width:100%;height:100%;background:rgba(39,174,96,.18);display:flex;align-items:center;padding-left:8px"><span style="font-size:10.5px;font-weight:500;color:#27ae60">765+</span></div></div></div></div><div style="background:rgba(39,174,96,.07);border:1px solid rgba(39,174,96,.2);border-left:3px solid #27ae60;padding:12px 14px"><div style="font-size:11px;font-weight:500;color:var(--navy);margin-bottom:3px">The compounding problem</div><p style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.65">Phase 3 added new complexity without resolving Phase 2's unexamined governance gap. Intercompany characterisation inconsistencies from the liberalisation era have compounded quietly now sitting beneath a more complex regulatory environment that makes them harder, not easier, to surface.</p></div></div>
+  </div>
+  <div style="background:var(--gold);padding:22px 48px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center">
+    <div style="font-family:var(--serif);font-size:32px;color:var(--navy);opacity:.3;font-weight:600;line-height:1">TEF</div>
+    <div><div style="font-family:var(--serif);font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px">Why this history matters for TEF's mandate</div><p style="font-size:12px;color:rgba(15,30,54,.6);font-weight:300;line-height:1.65">TEF's co-founders were present at every inflection 1989, 1991, 1993, 2001, 2008, 2014. They watched the governance gap form as global MNCs entered India and characterised their intercompany payments narrowly for customs purposes while describing their group structures more broadly in their own annual reports. No institution has ever systematically cross-referenced those two bodies of public information. TEF was built to do exactly that.</p></div>
+  </div>
+  <script>
+  function eraPhase(n){
+    [1,2,3].forEach(function(i){
+      var t=document.getElementById('era-ptab'+i);
+      var p=document.getElementById('era-panel'+i);
+      if(i===n){t.style.borderBottom='2.5px solid var(--gold)';t.style.background='var(--cream)';p.style.display='grid';}
+      else{t.style.borderBottom='2.5px solid transparent';t.style.background='var(--cream2)';p.style.display='none';}
+    });
+  }
+  </script>
+
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Founding Story</span></div>
+    <div class="stitle" style="margin-bottom:6px">Three Phases. One Governance Gap. One Institution.</div>
+    <p class="ssub" style="max-width:540px;margin-bottom:28px">The three phases of India's trade barrier evolution are not abstract history for TEF's founders. They are the professional biography of two brothers who began practising in the Licence Raj, watched the economy open and the governance gap form, and built TEF to address what that opening left unexamined.</p>
+    <div class="founding-grid">
+      <div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1989</div><div class="tl-txt"><strong>Phase 1 The Licence Raj.</strong> A customs broking practice is established. Peak tariff: 355%. Nearly 90% of goods under quantitative restrictions. The CHA's job is licence navigation, not valuation. No MNCs. No intercompany structures.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1991</div><div class="tl-txt"><strong>Phase 2 begins.</strong> India's liberalisation triggered by the BoP crisis. Peak duty cut from 355% to 150%. The customs environment transforms global MNCs begin entering, bringing franchise structures, royalty arrangements and management charges that the SVB is created to assess.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1993</div><div class="tl-txt"><strong>The practice expands.</strong> MNC volumes grow and intercompany payment characterisation franchise fees, royalties, SVB proceedings becomes a daily practice reality. The gap between what companies say before customs and what they say in their own disclosures begins to be observed firsthand.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2014</div><div class="tl-txt"><strong>Phase 3 begins.</strong> The protectionist turn under Make in India reverses two decades of tariff decline. Duties rise. QCOs begin their explosive growth from 14 to 765+ over the next decade. The Phase 2 characterisation gap compounds, unaddressed, beneath the new complexity.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-txt"><strong>TEF is incorporated.</strong> After more than three decades of CHA practice across all three phases, TEF is established to do what no law firm, academic institution or regulatory body has done: systematically cross-reference what corporate bodies say before Indian regulatory authorities against what they say in their own public disclosures, ESG commitments and international normative frameworks.</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="lrow" style="margin-bottom:8px"><div class="lbar"></div><span class="ltxt">Founding Credentials</span></div>
+        <p style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:16px">Both co-founders hold licences granted by the Commissioner of Customs under the Customs Brokers Licensing Regulations a regulated professional qualification requiring examination and approval by customs authorities.</p>
+        <div class="cred-grid">
+          <div class="cred-item"><div class="cred-val">36</div><div class="cred-label">Years of CHA practice elder co-founder (since 1989)</div></div>
+          <div class="cred-item"><div class="cred-val">32</div><div class="cred-label">Years of CHA practice younger co-founder (since 1993)</div></div>
+          <div class="cred-item"><div class="cred-val">2</div><div class="cred-label">Eras of Indian trade liberalisation through GST and beyond</div></div>
+          <div class="cred-item"><div class="cred-val">1</div><div class="cred-label">Mandate public interest research and governance in trade</div></div>
+        </div>
+        <div style="background:var(--navy);padding:20px;margin-top:16px">
+          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px">What is a Custom House Agent?</div>
+          <p style="font-size:11.5px;color:rgba(255,255,255,.42);line-height:1.68;font-weight:300">A Custom House Agent (CHA) now formally designated Customs Broker is a professional licensed by the Commissioner of Customs to transact business on behalf of importers and exporters before Indian customs authorities. The licence requires passing examinations and is granted only after scrutiny by customs officials. CHAs are uniquely positioned to understand customs valuation, SVB proceedings and the regulatory interface between multinational group structures and Indian customs law.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-wrap-cream">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Why TEF Exists</span></div>
+    <div class="stitle">Three Gaps TEF Was Formed to Fill</div>
+    <div class="gap-grid">
+      <div class="gap-item"><div class="gap-num">01</div><div class="gap-title">No institution systematically cross-references regulatory records against public disclosures</div><p class="gap-txt">Customs adjudication orders, SVB proceedings and CESTAT orders are public but no organisation has been reading them alongside the same companies' annual reports and investor presentations. TEF does.</p></div>
+      <div class="gap-item"><div class="gap-num">02</div><div class="gap-title">Intermediary professionals lack a body to represent their institutional interests</div><p class="gap-txt">Custom House Agents, freight forwarders and trade professionals have no forum that can represent their collective governance and professional integrity interests before regulatory authorities and courts. TEF fills that role.</p></div>
+      <div class="gap-item"><div class="gap-num">03</div><div class="gap-title">Public revenue protection lacks a practitioner voice in research and policy</div><p class="gap-txt">Academic and policy institutions studying customs and trade governance rarely have practitioners in the room. TEF brings 60 years of frontline customs practice to research that is typically confined to legal commentary or theoretical analysis.</p></div>
+    </div>
+  </div>
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Domain Expertise</span></div>
+    <div class="stitle">Fourteen Areas of Specialist Knowledge</div>
+    <div class="expertise-grid">
+      <div class="exp-item">India Customs Valuation</div>
+      <div class="exp-item">SVB Proceedings</div>
+      <div class="exp-item">CESTAT Appeals</div>
+      <div class="exp-item">Customs Broker Regulations</div>
+      <div class="exp-item">Intercompany Payment Structures</div>
+      <div class="exp-item">Transfer Pricing Interface</div>
+      <div class="exp-item">Franchise &amp; Royalty Characterisation</div>
+      <div class="exp-item">Group Functional Analysis</div>
+      <div class="exp-item">Regulatory Disclosure Standards</div>
+      <div class="exp-item">BRSR &amp; ESG Compliance</div>
+      <div class="exp-item">Import &amp; Export Procedures</div>
+      <div class="exp-item">Anti-dumping &amp; Trade Remedies</div>
+      <div class="exp-item">Public Interest Litigation</div>
+      <div class="exp-item">OECD Responsible Business Conduct</div>
+    </div>
+  </div>
+  <div class="section-wrap-dark">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Values</span></div>
+    <div class="stitle" style="color:#fff">How TEF Operates</div>
+    <div class="values-grid">
+      <div class="val-item"><div class="val-num">I</div><div class="val-title">Good faith always</div><p class="val-txt">Every research output and institutional submission is made in good faith, based on information reasonably believed to be accurate. This is not only an ethical commitment it is a registered obligation in TEF's Memorandum of Association.</p></div>
+      <div class="val-item"><div class="val-num">II</div><div class="val-title">Research before action</div><p class="val-txt">No submission is made without documented research. No formal governance notice is sent without cross-referencing the regulatory record against public disclosures. The research always precedes the action.</p></div>
+      <div class="val-item"><div class="val-num">III</div><div class="val-title">Lawful process only</div><p class="val-txt">TEF operates only through lawful channels governance engagement, statutory representations, financial institution memoranda and judicial proceedings. No extrajudicial pressure. No parallel process.</p></div>
+      <div class="val-item"><div class="val-num">IV</div><div class="val-title">Intermediaries matter</div><p class="val-txt">The professional integrity and livelihood of intermediaries and service providers in regulated sectors Custom House Agents, customs brokers and freight forwarders is a core registered object of TEF, not an ancillary consideration.</p></div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013 · All activities in good faith and in furtherance of public interest.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('research')">Research</a><a onclick="showPage('tracker')">Regulatory Actions</a><a onclick="showPage('advisory')">Advisory Council</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('about')">About TEF</a><a onclick="showPage('csr')">CSR &amp; Funding</a><a onclick="showPage('submit')">Submit Information</a></div>
+      <div class="ft-col"><h4>Legal</h4><a>Submission Policy</a><a>Privacy Notice</a><a>MOA &amp; AOA</a><a>Annual Returns</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span><div class="ft-tags"><div class="ft-tag"><div class="ft-tag-d"></div>Licensed CHA Founders</div></div></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: RESEARCH
+══════════════════════════════════════ -->
+<div id="page-research" class="page">
+  <div class="research-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">Public-Record Research · Independent Analysis · Published in the Public Interest</span></div>
+    <h1>Research Grounded in <em>Public Records</em></h1>
+    <p class="rh-sub">TEF's research methodology is built on a single principle: every finding is sourced from documents that are already publicly available. We do not rely on leaks, insider disclosures or confidential information.</p>
+  </div>
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Methodology</span></div>
+    <div class="stitle">The Five-Step Public-Record Methodology</div>
+    <p class="ssub" style="max-width:520px;margin-bottom:24px">Two types of public document sit at the heart of every TEF research output: the customs adjudication record and the company's own public disclosures. The methodology maps the space between them.</p>
+    <div class="method-full">
+      <div class="mf-item"><div class="mf-n">01</div><div class="mf-title">Obtain the public adjudication order</div><p class="mf-txt">Customs adjudication orders whether from the Commissioner of Customs, CESTAT or the Special Valuation Branch are public documents. They record the position companies took before the authority, the authority's findings, and often reproduce the company's own group structure descriptions within the record itself.</p></div>
+      <div class="mf-item"><div class="mf-n">02</div><div class="mf-title">Extract the recorded characterisation</div><p class="mf-txt">From the adjudication order, TEF extracts the exact characterisation advanced by the company for the intercompany payment how the entity was described, what functions were attributed to it, and on what basis the payment was presented to Indian customs authorities.</p></div>
+      <div class="mf-item"><div class="mf-n">03</div><div class="mf-title">Extract the group's own public disclosure</div><p class="mf-txt">TEF obtains the same company's annual reports, BRSR filings, investor presentations and group structure descriptions all public documents. These state how the group describes its own entities, functions and intercompany arrangements to investors and the market.</p></div>
+      <div class="mf-item"><div class="mf-n">04</div><div class="mf-title">Map the inconsistency as a governance concern</div><p class="mf-txt">Where the characterisation recorded in the adjudication order cannot be reconciled with the company's own public functional disclosures, that gap is the governance concern. TEF frames it precisely: not as a legal allegation, but as a governance question were the facts accurate and consistent with the group's own public disclosures?</p></div>
+      <div class="mf-item"><div class="mf-n">05</div><div class="mf-title">Engage through the three-channel model</div><p class="mf-txt">The documented governance concern is taken first to the company itself (governance review request), then where the response is inadequate to relevant regulatory authorities, and where further warranted, to financial institutions or courts. Each channel is sequential and conditional on the response received at the prior stage.</p></div>
+      <div class="mf-item"><div class="mf-n">⊕</div><div class="mf-title">Why this methodology is distinctive</div><p class="mf-txt">The analysis is based entirely on what the company itself has put in the public domain in the regulatory record and in its own disclosures. What makes this methodology distinctive is not just the technique but the vantage point: TEF's founders were practising customs brokers when India's trade opened in the 1990s and these characterisation patterns first emerged. They observed the gap forming in real SVB proceedings long before it became a research question. That firsthand fluency with adjudication orders, built across three decades of active practice, is not replicable by researchers, lawyers or policy analysts working from the outside.</p></div>
+    </div>
+  </div>
+  <div class="section-wrap-cream">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Primary Sources</span></div>
+    <div class="stitle">Documents TEF Analyses</div>
+    <div class="src-list">
+      <div class="src-item"><div class="src-icon">Regulatory Records</div><div class="src-name">Customs Adjudication Orders</div><p class="src-desc">Commissioner-level orders, CESTAT judgments, orders-in-original all public, all containing the company's own submissions.</p></div>
+      <div class="src-item"><div class="src-icon">Regulatory Records</div><div class="src-name">SVB Enquiry Reports</div><p class="src-desc">Special Valuation Branch proceedings documenting how intercompany transactions were characterised and assessed.</p></div>
+      <div class="src-item"><div class="src-icon">Corporate Disclosures</div><div class="src-name">Annual Reports</div><p class="src-desc">Directors' reports, financial statements, notes to accounts containing group structure descriptions and related-party disclosures.</p></div>
+      <div class="src-item"><div class="src-icon">Corporate Disclosures</div><div class="src-name">BRSR Filings</div><p class="src-desc">Business Responsibility and Sustainability Reports containing ESG commitments and governance disclosures filed by listed entities.</p></div>
+      <div class="src-item"><div class="src-icon">Investor Materials</div><div class="src-name">Investor Presentations</div><p class="src-desc">Analyst presentations, IPO filings, capital market disclosures often containing detailed group functional allocations and entity descriptions.</p></div>
+      <div class="src-item"><div class="src-icon">Regulatory Filings</div><div class="src-name">SEBI &amp; MCA Filings</div><p class="src-desc">Exchange filings, related-party transaction disclosures, corporate governance reports filed with SEBI and the Ministry of Corporate Affairs.</p></div>
+    </div>
+  </div>
+  <div class="section-wrap-dark">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Core Programme</span></div>
+    <div class="stitle" style="color:#fff">Intercompany Payment Characterisation in India Customs</div>
+    <p class="ssub" style="color:rgba(255,255,255,.42);max-width:520px;margin-bottom:24px">TEF's core research programme focuses on a specific and recurring pattern that emerged during India's liberalisation phase: as global MNCs entered India from the early 1990s, they brought group structures franchise arrangements, royalty flows, management charges that Indian customs valuation had never previously encountered. The characterisations those companies advanced before customs authorities were not always consistent with how the same groups described their own structures in public disclosures. That gap first observable in the SVB proceedings of the liberalisation era is what TEF now systematically researches using public records.</p>
+    <div class="core-prog-grid">
+      <div class="cp-item"><div class="cp-label">The Pattern</div><div class="cp-title">Narrow characterisation before customs; broad functional description in investor materials</div><p class="cp-txt">A franchise fee or royalty is presented to Indian customs as compensating only a specific, limited function retail concept, brand licence, or logistics support. The same group's own annual reports describe the paying entity as providing retail operations, range management, supply chain and logistics a materially broader set of functions than the customs characterisation records.</p><div class="cp-detail"><ul class="cp-bullets"><li>Franchise fee: "retail concept only" before customs; "retail + range + supply" in group disclosure</li><li>Management charge: "IT services" before customs; "full business management" in investor presentations</li><li>Royalty: "brand licence" before customs; "full IP and know-how package" in annual report</li></ul></div></div>
+      <div class="cp-item"><div class="cp-label">The Source</div><div class="cp-title">The adjudication order itself often contains the key</div><p class="cp-txt">A distinctive feature of this research programme is that the adjudication order itself often reproduces the company's own submissions about its group structure including organisational charts and entity descriptions provided by the company. When compared against the same group's annual report, the inconsistency becomes visible within documents the company itself authored.</p><div class="cp-detail"><ul class="cp-bullets"><li>Adjudication order reproduces company's own group structure submission</li><li>Annual report describes same entities with different functional scope</li><li>Gap is the governance question sourced entirely from the company's own words</li></ul></div></div>
+      <div class="cp-item"><div class="cp-label">The Risk</div><div class="cp-title">Governance, compliance and public revenue implications</div><p class="cp-txt">Where a company's representations before Indian customs cannot be reconciled with its own public functional disclosures, several governance and compliance questions arise including the accuracy of representations made to a statutory authority, the completeness of related-party disclosures in audited accounts, and the integrity of the company's governance and oversight processes for cross-border transactions.</p></div>
+      <div class="cp-item"><div class="cp-label">The Action</div><div class="cp-title">Governance first then measured escalation</div><p class="cp-txt">TEF documents the inconsistency as a governance question and takes it first to the company. The governance review request identifies the discrepancy, cites both source documents, and requests the company to verify the accuracy of its representations and review its controls. Only where the response is inadequate does TEF escalate to regulatory authorities.</p></div>
+    </div>
+  </div>
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Research Patterns</span></div>
+    <div class="stitle">Recurring Patterns Under Analysis</div>
+    <div class="patterns-grid">
+      <div class="pat-item"><div class="pat-title">Franchise Fee Characterisation</div><p class="pat-txt">Franchise fees characterised as compensating only "retail concept" or "brand use" before Indian customs while the same group's disclosures describe the franchisor entity as providing range management, supply chain integration, technology platforms and full business model support.</p></div>
+      <div class="pat-item"><div class="pat-title">Royalty Scope Discrepancy</div><p class="pat-txt">Royalties presented as covering only intellectual property licensing for Indian customs purposes while the licensor's own annual report describes the arrangement as encompassing know-how transfer, operational support, quality systems and ongoing service provision.</p></div>
+      <div class="pat-item"><div class="pat-title">SVB Non-Disclosure</div><p class="pat-txt">Material agreements, group arrangements and intercompany service contracts not disclosed to the SVB during enquiry proceedings agreements that are referenced, or their terms described, in the same company's publicly filed annual reports and SEBI disclosures.</p></div>
+      <div class="pat-item"><div class="pat-title">Transfer Pricing / Customs Interface</div><p class="pat-txt">The same intercompany payment treated as an arms-length transaction for transfer pricing purposes with a detailed functional analysis supporting the TP characterisation while a materially different characterisation is advanced before Indian customs valuation authorities.</p></div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013 · All activities in good faith.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('about')">About</a><a onclick="showPage('tracker')">Regulatory Actions</a><a onclick="showPage('advisory')">Advisory Council</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('csr')">CSR &amp; Funding</a><a onclick="showPage('submit')">Submit Information</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: SUBMISSIONS TRACKER
+══════════════════════════════════════ -->
+<div id="page-tracker" class="page">
+  <div class="about-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">Public Docket · Institutional Submissions · Regulatory Engagements</span></div>
+    <h1>Regulatory <em>Submissions</em> Tracker</h1>
+    <p class="about-hero-sub">A public record of TEF's institutional submissions formal governance notices, regulatory representations, financial institution memoranda and judicial filings. All submissions are based on public-record research undertaken in good faith.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:240px 1fr;background:var(--cream)">
+    <div class="tracker-sidebar">
+      <div class="ts-title">Filter submissions</div>
+      <input class="ts-search" placeholder="Search by subject, ID…" id="trackerSearch">
+      <div class="ts-section">
+        <div class="ts-section-label">By category</div>
+        <div class="ts-filter active" onclick="filterTracker('all',this)"><div class="ts-filter-dot" style="background:var(--gold)"></div>All submissions</div>
+        <div class="ts-filter" onclick="filterTracker('gov',this)"><div class="ts-filter-dot" style="background:#b8912a"></div>Formal governance notice</div>
+        <div class="ts-filter" onclick="filterTracker('reg',this)"><div class="ts-filter-dot" style="background:#1a4a8a"></div>Regulatory authority</div>
+        <div class="ts-filter" onclick="filterTracker('fi',this)"><div class="ts-filter-dot" style="background:#2d6a4f"></div>Financial institution</div>
+        <div class="ts-filter" onclick="filterTracker('jud',this)"><div class="ts-filter-dot" style="background:#7a2828"></div>Judicial / PIL</div>
+      </div>
+      <div class="ts-section">
+        <div class="ts-section-label">By status</div>
+        <div class="ts-filter" onclick="filterStatus('Formal governance notice pending',this)"><div class="ts-filter-dot" style="background:#b8912a"></div>Formal governance notice pending</div>
+        <div class="ts-filter" onclick="filterStatus('Filed',this)"><div class="ts-filter-dot" style="background:#1a4a8a"></div>Filed</div>
+        <div class="ts-filter" onclick="filterStatus('Awaiting response',this)"><div class="ts-filter-dot" style="background:#7a5010"></div>Awaiting response</div>
+        <div class="ts-filter" onclick="filterStatus('Response received',this)"><div class="ts-filter-dot" style="background:#2d6a4f"></div>Response received</div>
+        <div class="ts-filter" onclick="filterStatus('Escalated',this)"><div class="ts-filter-dot" style="background:#7a2828"></div>Escalated</div>
+      </div>
+    </div>
+    <div class="tracker-main">
+      <div class="tm-header"><div class="stitle" style="font-size:18px;margin-bottom:0">Submission Docket</div><div class="tm-count" id="subCount">Showing 5 submissions</div></div>
+      <div class="redaction-note">Certain identifying information is redacted from this public docket in accordance with TEF's Submission Policy and applicable privacy considerations. Parties named in public adjudication orders may be identified; other information providers are held in strict confidence.</div>
+      <div id="subList">
+        <div class="sub-card" data-cat="gov" data-status="Formal governance notice pending">
+          <div class="sub-card-header" onclick="toggleSub(this)">
+            <div class="sub-id">TEF-GOV-001</div>
+            <div class="sub-title-wrap"><div class="sub-title">Governance review request customs valuation characterisation of franchise fee, major MNC retailer</div><div class="sub-meta">March 2025 · Customs Valuation · Channel 01</div></div>
+            <div class="sub-status s-gov">Formal governance notice pending</div>
+            <div class="sub-expand">+</div>
+          </div>
+          <div class="sub-body">
+            <div class="sub-detail-grid">
+              <div class="sd-item"><div class="sd-label">Subject</div><div class="sd-value">Characterisation of franchise fee paid by India entity to overseas group company in customs valuation proceedings</div></div>
+              <div class="sd-item"><div class="sd-label">Basis</div><div class="sd-value">Public adjudication order cross-referenced against same group's own annual report and investor disclosures</div></div>
+              <div class="sd-item"><div class="sd-label">Primary concern</div><div class="sd-value">Functional scope attributed to overseas entity in customs proceedings inconsistent with group's own public functional allocation</div></div>
+              <div class="sd-item"><div class="sd-label">TEF object invoked</div><div class="sd-value">MOA Objects A(1), A(2), A(4) corporate governance, transparency and accountability; accuracy of representations to regulators</div></div>
+            </div>
+            <div class="act-log">
+              <div class="al-title">Activity log</div>
+              <div class="al-item"><div class="al-date">Mar 2025</div><div class="al-event">Research completed. Adjudication order and company disclosures cross-referenced. Governance concern documented.</div></div>
+              <div class="al-item"><div class="al-date">Mar 2025</div><div class="al-event">Governance review request letter finalised and dispatched to company board and compliance function.</div></div>
+              <div class="al-item"><div class="al-date">—</div><div class="al-event">Awaiting company response. 30-day response window open.</div></div>
+            </div>
+            <div class="sub-object">TEF Object: "Promote integrity in corporate representations and disclosures to regulators, financial institutions and markets" MOA Object A(4)</div>
+          </div>
+        </div>
+        <div class="sub-card" data-cat="reg" data-status="Filed">
+          <div class="sub-card-header" onclick="toggleSub(this)">
+            <div class="sub-id">TEF-REG-001</div>
+            <div class="sub-title-wrap"><div class="sub-title">DRI intercompany payment characterisation, customs valuation, Channel 01</div><div class="sub-meta">Directorate of Revenue Intelligence · Channel 01</div></div>
+            <div class="sub-status s-gov">Research Complete / Notice Pending</div>
+            <div class="sub-expand">+</div>
+          </div>
+          <div class="sub-body">
+            <div class="sub-detail-grid">
+              <div class="sd-item"><div class="sd-label">Authority</div><div class="sd-value">Directorate of Revenue Intelligence (DRI), Ministry of Finance</div></div>
+              <div class="sd-item"><div class="sd-label">Subject</div><div class="sd-value">Potential under-valuation through narrow characterisation of intercompany payments for customs assessable value</div></div>
+              <div class="sd-item"><div class="sd-label">Prior action</div><div class="sd-value">Governance review request dispatched to company no adequate response received within 30-day window</div></div>
+              <div class="sd-item"><div class="sd-label">TEF object invoked</div><div class="sd-value">MOA Objects A(2), B(2) protection of public revenue; representations to statutory authorities</div></div>
+            </div>
+            <div class="act-log">
+              <div class="al-title">Activity log</div>
+              <div class="al-item"><div class="al-date">Jan 2025</div><div class="al-event">Governance review request sent to company. No adequate response received within 30-day window.</div></div>
+              <div class="al-item"><div class="al-date">Feb 2025</div><div class="al-event">DRI representation filed with documented research annex and copy of governance review request showing prior engagement with company.</div></div>
+              <div class="al-item"><div class="al-date">—</div><div class="al-event">Awaiting acknowledgement from DRI.</div></div>
+            </div>
+            <div class="sub-object">TEF Object: "Promote awareness of customs, trade and fiscal laws; support protection of public revenue" MOA Object A(2)</div>
+          </div>
+        </div>
+        <div class="sub-card" data-cat="reg" data-status="Response received">
+          <div class="sub-card-header" onclick="toggleSub(this)">
+            <div class="sub-id">TEF-REG-002</div>
+            <div class="sub-title-wrap"><div class="sub-title">CBIC customs broker licence proceedings, intermediary professional harm, Channel 01</div><div class="sub-meta">CBIC / Commissioner of Customs · Channel 01</div></div>
+            <div class="sub-status s-gov">Research Complete / Notice Pending</div>
+            <div class="sub-expand">+</div>
+          </div>
+          <div class="sub-body">
+            <div class="sub-detail-grid">
+              <div class="sd-item"><div class="sd-label">Authority</div><div class="sd-value">Central Board of Indirect Taxes and Customs / Commissioner of Customs</div></div>
+              <div class="sd-item"><div class="sd-label">Subject</div><div class="sd-value">CHA licence revocation proceedings where documented evidence indicates non-compliance originated with corporate principal, not the licensed broker</div></div>
+              <div class="sd-item"><div class="sd-label">TEF object invoked</div><div class="sd-value">MOA Object A(5) support for legitimate interests and professional integrity of intermediaries in regulated sectors</div></div>
+              <div class="sd-item"><div class="sd-label">Status detail</div><div class="sd-value">Response received from office of Commissioner. Under review. Supplementary submission being prepared.</div></div>
+            </div>
+            <div class="act-log">
+              <div class="al-title">Activity log</div>
+              <div class="al-item"><div class="al-date">Jan 2025</div><div class="al-event">Research representation filed with CBIC citing documented evidence and TEF's intermediary support mandate.</div></div>
+              <div class="al-item"><div class="al-date">Feb 2025</div><div class="al-event">Response received from Commissioner's office. Acknowledgement of submission. Further information requested.</div></div>
+              <div class="al-item"><div class="al-date">Mar 2025</div><div class="al-event">Supplementary submission being prepared in response to queries raised.</div></div>
+            </div>
+            <div class="sub-object">TEF Object: "Support legitimate interests, professional integrity and livelihood of intermediaries and service providers in regulated sectors" MOA Object A(5)</div>
+          </div>
+        </div>
+        <div class="sub-card" data-cat="reg" data-status="Escalated">
+          <div class="sub-card-header" onclick="toggleSub(this)">
+            <div class="sub-id">TEF-REG-003</div>
+            <div class="sub-title-wrap"><div class="sub-title">SEBI ESG/BRSR discrepancy, listed entity, governance disclosure integrity</div><div class="sub-meta">December 2024 · Securities and Exchange Board of India · Channel 02</div></div>
+            <div class="sub-status s-esc">Escalated</div>
+            <div class="sub-expand">+</div>
+          </div>
+          <div class="sub-body">
+            <div class="sub-detail-grid">
+              <div class="sd-item"><div class="sd-label">Authority</div><div class="sd-value">Securities and Exchange Board of India (SEBI)</div></div>
+              <div class="sd-item"><div class="sd-label">Subject</div><div class="sd-value">Material discrepancy between BRSR ESG disclosures filed by listed entity and independently verifiable compliance data from regulatory records</div></div>
+              <div class="sd-item"><div class="sd-label">TEF object invoked</div><div class="sd-value">MOA Objects A(1), A(4), B(2) corporate governance, disclosure integrity, representations to regulatory authorities</div></div>
+              <div class="sd-item"><div class="sd-label">Status detail</div><div class="sd-value">Initial representation filed Dec 2024. No substantive response. Supplementary memorandum filed March 2025 with additional evidence.</div></div>
+            </div>
+            <div class="act-log">
+              <div class="al-title">Activity log</div>
+              <div class="al-item"><div class="al-date">Nov 2024</div><div class="al-event">Governance review request sent to company compliance committee. Inadequate response received within 30 days.</div></div>
+              <div class="al-item"><div class="al-date">Dec 2024</div><div class="al-event">SEBI representation filed. Research annex included. Prior governance engagement documented.</div></div>
+              <div class="al-item"><div class="al-date">Mar 2025</div><div class="al-event">No substantive response from SEBI. Supplementary memorandum filed with additional cross-referencing evidence. Financial institution notification under consideration.</div></div>
+            </div>
+            <div class="sub-object">TEF Object: "Promote corporate governance, transparency, accountability and responsible business conduct" MOA Object A(1)</div>
+          </div>
+        </div>
+        <div class="sub-card" data-cat="fi" data-status="Awaiting response">
+          <div class="sub-card-header" onclick="toggleSub(this)">
+            <div class="sub-id">TEF-FI-001</div>
+            <div class="sub-title-wrap"><div class="sub-title">Financial institution memorandum governance risk, customs valuation characterisation, MNC borrower</div><div class="sub-meta">March 2025 · Financial Institution · Channel 03</div></div>
+            <div class="sub-status s-await">Awaiting response</div>
+            <div class="sub-expand">+</div>
+          </div>
+          <div class="sub-body">
+            <div class="sub-detail-grid">
+              <div class="sd-item"><div class="sd-label">Recipient</div><div class="sd-value">Lending institution [identity withheld financial institution memorandum]</div></div>
+              <div class="sd-item"><div class="sd-label">Subject</div><div class="sd-value">Governance risk memorandum documented inconsistency between customs valuation characterisation and group public disclosures; potential risk to financial institution as creditor</div></div>
+              <div class="sd-item"><div class="sd-label">Prior actions</div><div class="sd-value">Governance review request sent and inadequately responded to. DRI representation filed (TEF-REG-001). Financial institution notified pursuant to TEF object B(5).</div></div>
+              <div class="sd-item"><div class="sd-label">TEF object invoked</div><div class="sd-value">MOA Object B(5) engagement with domestic and international financial institutions and investors</div></div>
+            </div>
+            <div class="act-log">
+              <div class="al-title">Activity log</div>
+              <div class="al-item"><div class="al-date">Feb 2025</div><div class="al-event">Governance risk memorandum prepared following DRI filing and absence of company response to governance review request.</div></div>
+              <div class="al-item"><div class="al-date">Mar 2025</div><div class="al-event">Memorandum dispatched to relevant lending institution. Awaiting acknowledgement.</div></div>
+            </div>
+            <div class="sub-object">TEF Object: "Engage with domestic and international organisations, regulators, financial institutions and investors" MOA Object B(5)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013 · All submissions in good faith.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('research')">Research</a><a onclick="showPage('about')">About</a><a onclick="showPage('advisory')">Advisory Council</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('csr')">CSR &amp; Funding</a><a onclick="showPage('submit')">Submit Information</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: ADVISORY COUNCIL
+══════════════════════════════════════ -->
+<div id="page-advisory" class="page">
+  <div class="advisory-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">Constituting · Founding Members Being Invited · Honorary &amp; Non-Executive</span></div>
+    <h1>Independent <em>Advisory Council</em></h1>
+    <p class="ah-sub">TEF is constituting an independent Advisory Council of distinguished professionals to provide institutional oversight of publications, governance assessments and public interest submissions, and to lend the credibility of expert review to TEF's work.</p>
+  </div>
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Domain Expertise Sought</span></div>
+    <div class="stitle">Who TEF is Looking For</div>
+    <p class="ssub" style="max-width:620px;margin-bottom:20px">TEF's work is specialist. The Advisory Council does not need breadth it needs depth in the disciplines that directly serve TEF's research and institutional mandate.</p>
+    <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);padding:24px 28px;max-width:680px">
+      <p style="font-size:13px;color:var(--navy);line-height:1.82;font-weight:300">The founding Advisory Council is being constituted around professionals with deep experience in <strong style="font-weight:500">India customs law, customs valuation and CESTAT practice</strong> retired Commissioners, former DRI officers, senior advocates who have practised before the Tribunal, or academics who have written seriously on customs valuation. These are the individuals whose institutional standing and subject-matter authority most directly strengthens TEF's research outputs and regulatory submissions.</p>
+      <p style="font-size:13px;color:var(--navy);line-height:1.82;font-weight:300;margin-top:14px">Beyond customs, TEF seeks one or two members with depth in <strong style="font-weight:500">corporate governance and company law</strong> to bring credibility to TEF's governance engagement work and optionally a member with experience in <strong style="font-weight:500">public interest litigation</strong>, given TEF's objects include approaching courts and tribunals where research warrants it.</p>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">If you have spent your career in and around Indian customs, trade law or corporate governance and believe that independent institutional scrutiny of how corporate bodies conduct themselves before Indian regulatory authorities serves the public interest TEF would welcome your involvement.</p>
+    </div>
+  </div>
+  <div class="section-wrap-dark">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Governance Structure</span></div>
+    <div class="stitle" style="color:#fff;margin-bottom:20px">How the Advisory Council Operates</div>
+    <div class="gov-structure">
+      <div class="gs-title">Council Structure &amp; Terms</div>
+      <div class="gs-items">
+        <div class="gs-item"><div class="gs-it">Honorary &amp; non-remunerative</div><p class="gs-ib">All Advisory Council positions are honorary. No remuneration, fees or financial consideration of any kind.</p></div>
+        <div class="gs-item"><div class="gs-it">Non-executive</div><p class="gs-ib">The Advisory Council has no role in day-to-day management, operations or administrative decisions of TEF.</p></div>
+        <div class="gs-item"><div class="gs-it">Publication review</div><p class="gs-ib">The Advisory Council reviews TEF's research publications and governance assessments before release providing institutional validation.</p></div>
+        <div class="gs-item"><div class="gs-it">Annual meetings</div><p class="gs-ib">The Council meets at least annually to review TEF's research agenda, publications and institutional engagement and to provide guidance on priorities.</p></div>
+      </div>
+    </div>
+    <div class="adv-why-box" style="margin-top:20px">
+      <div class="adv-why-t">Why the Advisory Council strengthens TEF's institutional role</div>
+      <div class="adv-row"><div class="adv-n">1</div><div><div class="adv-rt">PIL locus standi</div><p class="adv-rb">Expert advisory oversight particularly from retired jurists, senior counsel or former regulators substantiates TEF's standing to bring public interest petitions under Articles 32 and 226 of the Constitution.</p></div></div>
+      <div class="adv-row"><div class="adv-n">2</div><div><div class="adv-rt">Regulatory weight</div><p class="adv-rb">Submissions to DRI, SEBI, SFIO and CBIC that carry institutional endorsement from an expert advisory council are taken more seriously and are harder to dismiss procedurally.</p></div></div>
+      <div class="adv-row"><div class="adv-n">3</div><div><div class="adv-rt">Protection against motive allegations</div><p class="adv-rb">Corporates responding to TEF formal governance notices may attempt to characterise submissions as motivated or vexatious. An independent advisory council that has reviewed the research substantially undermines this line of attack.</p></div></div>
+      <div class="adv-row"><div class="adv-n">4</div><div><div class="adv-rt">CSR donor confidence</div><p class="adv-rb">Companies and institutional donors considering CSR contributions to TEF are more likely to do so where an independent advisory council provides credible oversight of how funds are applied.</p></div></div>
+    </div>
+  </div>
+  <div class="eoi-form">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Expression of Interest</span></div>
+    <div class="stitle">Join the Founding Advisory Council</div>
+    <p class="ssub" style="max-width:520px;margin-bottom:28px">If you are a professional with expertise in one or more of the domains above and would be willing to serve in an honorary advisory capacity, TEF welcomes your expression of interest.</p>
+    <div class="eoi-grid">
+      <div class="form-group"><label class="form-label">Full name</label><input class="form-input" placeholder="Your name" type="text"></div>
+      <div class="form-group"><label class="form-label">Professional designation</label><input class="form-input" placeholder="e.g. Senior Advocate, Retired IRS Officer" type="text"></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" placeholder="your@email.com" type="email"></div>
+      <div class="form-group"><label class="form-label">Domain expertise</label><input class="form-input" placeholder="Primary area of expertise" type="text"></div>
+      <div class="form-group full"><label class="form-label">Brief professional background</label><textarea class="form-input form-textarea" placeholder="Please describe your professional background and areas of expertise relevant to TEF's work…"></textarea></div>
+    </div>
+    <div style="margin-top:20px"><button class="btn-gold">Submit Expression of Interest</button></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;max-width:480px;line-height:1.55">TEF will acknowledge all expressions of interest and respond to those that align with the Council's current composition needs. All information provided will be held in strict confidence.</p>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('research')">Research</a><a onclick="showPage('tracker')">Regulatory Actions</a><a onclick="showPage('about')">About</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('csr')">CSR &amp; Funding</a><a onclick="showPage('submit')">Submit Information</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: CSR & FUNDING
+══════════════════════════════════════ -->
+<div id="page-csr" class="page">
+  <div class="csr-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">CSR Eligible · Schedule VII · Section 8 Not-for-Profit</span></div>
+    <h1>CSR &amp; <em>Funding</em></h1>
+    <p class="csrh-sub">TEF is a Section 8 company eligible to receive CSR contributions under Schedule VII of the Companies Act 2013. Corporate bodies with corporate social responsibility obligations may direct funds to TEF's governance research and public interest activities.</p>
+  </div>
+  <div class="section-wrap-white">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Eligibility</span></div>
+    <div class="stitle">CSR Eligibility at a Glance</div>
+    <table class="elig-table">
+      <thead><tr><th>Criterion</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Section 8 Company</strong></td><td class="elig-y">✓ Eligible</td><td>TEF is incorporated as a Section 8 company under the Companies Act 2013</td></tr>
+        <tr><td><strong>Schedule VII Alignment</strong></td><td class="elig-y">✓ Eligible</td><td>TEF's activities align with Schedule VII covering education, research, governance, and livelihood enhancement</td></tr>
+        <tr><td><strong>CSR-1 Registration</strong></td><td class="elig-p">In Process</td><td>CSR-1 registration on MCA CSR portal required before receiving CSR contributions</td></tr>
+        <tr><td><strong>80G Tax Exemption</strong></td><td class="elig-p">Application in Process</td><td>Application to be filed with Income Tax authorities. Donors should note pending status.</td></tr>
+        <tr><td><strong>FCRA Registration</strong></td><td class="elig-p">Not yet eligible</td><td>FCRA registration requires 3 years of existence and track record. Not applicable at this stage.</td></tr>
+        <tr><td><strong>Utilisation Reports</strong></td><td class="elig-y">✓ Provided</td><td>TEF provides utilisation certificates and annual reports to all donors</td></tr>
+        <tr><td><strong>No Member Distribution</strong></td><td class="elig-y">✓ Confirmed</td><td>TEF's MOA prohibits distribution of income or assets to members all funds applied to objects</td></tr>
+      </tbody>
+    </table>
+    <div style="background:var(--cream2);border:1px solid var(--border);border-left:3px solid var(--gold);padding:14px 18px;margin-top:16px;font-size:11.5px;color:var(--muted);line-height:1.6">
+      <strong style="color:var(--navy)">Note for CSR donors:</strong> Companies and their CSR committees should satisfy themselves with independent legal advice that TEF's registered objects align with the Schedule VII activity under which the CSR contribution is being made. TEF can provide its MOA and all corporate documents for this purpose.
+    </div>
+  </div>
+  <div class="section-wrap-cream">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Schedule VII</span></div>
+    <div class="stitle">Relevant Schedule VII Activities</div>
+    <div class="schvii-grid">
+      <div class="schvii-item"><div class="schvii-title">Promotion of education</div><p class="schvii-txt">TEF's research, publications, training programmes and compliance awareness activities advance governance and compliance education across India's regulatory framework.</p></div>
+      <div class="schvii-item"><div class="schvii-title">Livelihood enhancement projects</div><p class="schvii-txt">TEF's support for intermediaries and service providers in regulated sectors, including Custom House Agents and customs brokers, whose livelihoods may be affected by systemic compliance failures by corporate bodies.</p></div>
+      <div class="schvii-item"><div class="schvii-title">Promotion of gender equality &amp; women's empowerment</div><p class="schvii-txt">Where TEF's training and capacity-building programmes specifically support women professionals and intermediaries in regulated sectors.</p></div>
+      <div class="schvii-item"><div class="schvii-title">Contributions to PM National Relief Fund or similar funds</div><p class="schvii-txt">Not applicable to TEF.</p></div>
+      <div class="schvii-item"><div class="schvii-title">Rural development projects</div><p class="schvii-txt">Where TEF's compliance awareness and research activities support businesses and intermediaries in rural and semi-urban trade corridors.</p></div>
+      <div class="schvii-item"><div class="schvii-title">Protection of national heritage, art and culture</div><p class="schvii-txt">Not the primary focus of TEF's work.</p></div>
+    </div>
+  </div>
+  <div class="section-wrap-dark">
+    <div class="lrow"><div class="lbar"></div><span class="ltxt">Process</span></div>
+    <div class="stitle" style="color:#fff">How CSR Contributions Work with TEF</div>
+    <div class="csr-process">
+      <div class="csr-step"><div class="csr-step-n">01</div><div class="csr-step-t">Initial discussion</div><p class="csr-step-b">Contact TEF to discuss your CSR committee's focus areas and how TEF's work may align</p></div>
+      <div class="csr-step"><div class="csr-step-n">02</div><div class="csr-step-t">Document review</div><p class="csr-step-b">TEF provides MOA, annual returns and all documents your CSR committee and legal advisers require</p></div>
+      <div class="csr-step"><div class="csr-step-n">03</div><div class="csr-step-t">Proposal &amp; agreement</div><p class="csr-step-b">Activity-specific proposal prepared for CSR committee approval, with outcomes and reporting framework</p></div>
+      <div class="csr-step"><div class="csr-step-n">04</div><div class="csr-step-t">Implementation</div><p class="csr-step-b">Funds applied to agreed activities research, publications, training programmes or institutional submissions</p></div>
+      <div class="csr-step"><div class="csr-step-n">05</div><div class="csr-step-t">Reporting</div><p class="csr-step-b">Utilisation certificate, progress report and MCA CSR portal compliance reporting provided to donor</p></div>
+    </div>
+  </div>
+    <div class="cta-bar">
+    <div><div class="cta-title">Discuss a CSR contribution with TEF</div><p class="cta-sub">Contact TEF to discuss your organisation's CSR objectives and how a contribution to TEF's governance research and public interest activities may align with your Schedule VII obligations.</p></div>
+    <button class="btn-navy">Contact TEF</button>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('research')">Research</a><a onclick="showPage('tracker')">Regulatory Actions</a><a onclick="showPage('about')">About</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('advisory')">Advisory Council</a><a onclick="showPage('submit')">Submit Information</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: SUBMIT INFORMATION
+══════════════════════════════════════ -->
+<div id="page-submit" class="page">
+  <div class="submit-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px"><div class="hero-eline"></div><span class="hero-etxt">Strictly Confidential · Anonymous Submissions Accepted · Good Faith Use Only</span></div>
+    <h1>Submit <em>Information</em></h1>
+    <p class="subh-sub">TEF welcomes documented information from trade professionals, customs brokers, compliance officers and others with knowledge of regulatory proceedings, compliance records or governance disclosures involving corporate bodies subject to Indian regulatory jurisdiction. This includes customs valuation, SVB proceedings and intercompany arrangement disclosures, as well as ESG and BRSR discrepancies and intermediary harm arising from corporate compliance failures.</p>
+    <div class="anon-note">Anonymous submissions are fully accepted and welcomed. TEF does not require identifying information. All information received is held in strict confidence and used only in furtherance of TEF's registered public interest objects.</div>
+  </div>
+  <div class="submit-form-wrap">
+    <div>
+      <div class="step-indicator">
+        <div class="step-ind active" id="stepInd1"><span class="step-n">Step 01</span>Type of concern</div>
+        <div class="step-ind" id="stepInd2"><span class="step-n">Step 02</span>Details</div>
+        <div class="step-ind" id="stepInd3"><span class="step-n">Step 03</span>Supporting evidence</div>
+        <div class="step-ind" id="stepInd4"><span class="step-n">Step 04</span>Your details (optional)</div>
+      </div>
+      <div id="formStep1" class="form-step active">
+        <div class="lrow"><div class="lbar"></div><span class="ltxt">Step 01</span></div>
+        <div class="stitle" style="font-size:18px;margin-bottom:16px">What type of information are you submitting?</div>
+        <div class="type-grid">
+          <div class="type-card" onclick="selectType(this)"><div class="tc-title">Customs Valuation Intercompany Payment</div><p class="tc-txt">Information about how a corporate body has characterised franchise fees, royalties, management charges or other intercompany payments before Indian customs authorities</p></div>
+          <div class="type-card" onclick="selectType(this)"><div class="tc-title">Trade &amp; Customs Irregularities</div><p class="tc-txt">Information about under-valuation, SVB non-disclosure, misclassification or other potential non-compliance in customs or trade regulatory proceedings</p></div>
+          <div class="type-card" onclick="selectType(this)"><div class="tc-title">Intermediary &amp; Professional Harm</div><p class="tc-txt">Information about cases where a licensed Custom House Agent, customs broker or other intermediary or service provider in a regulated sector faces proceedings in circumstances where the underlying non-compliance originated with the corporate principal</p></div>
+          <div class="type-card" onclick="selectType(this)"><div class="tc-title">ESG / BRSR Discrepancy</div><p class="tc-txt">Information about material discrepancies between a corporate body's ESG or BRSR disclosures and independently verifiable compliance data or regulatory records</p></div>
+        </div>
+        <div class="form-btns"><button class="btn-gold" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+      <div id="formStep2" class="form-step">
+        <div class="lrow"><div class="lbar"></div><span class="ltxt">Step 02</span></div>
+        <div class="stitle" style="font-size:18px;margin-bottom:16px">Describe the concern</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="form-group"><label class="form-label">Corporate body or entity involved (if known)</label><input class="form-input" placeholder="Name of company or leave blank if anonymous" type="text"></div>
+          <div class="form-group"><label class="form-label">Reference adjudication order, case number or document (if known)</label><input class="form-input" placeholder="e.g. Order No. or CESTAT appeal number" type="text"></div>
+          <div class="form-group"><label class="form-label">Description of the concern</label><textarea class="form-input form-textarea" style="min-height:120px" placeholder="Please describe the concern in as much detail as you are able. Include dates, amounts, regulatory proceedings and the nature of the inconsistency or harm if known…"></textarea></div>
+          <div class="form-group"><label class="form-label">Time period (approximate)</label><input class="form-input" placeholder="e.g. 2020–2024, or ongoing" type="text"></div>
+        </div>
+        <div class="form-btns"><button class="btn-outline" onclick="nextStep(1)">← Back</button><button class="btn-gold" onclick="nextStep(3)">Continue →</button></div>
+      </div>
+      <div id="formStep3" class="form-step">
+        <div class="lrow"><div class="lbar"></div><span class="ltxt">Step 03</span></div>
+        <div class="stitle" style="font-size:18px;margin-bottom:16px">Supporting evidence or documents</div>
+        <div style="background:var(--cream2);border:1px solid var(--border);padding:20px;margin-bottom:20px">
+          <div style="font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:8px">What strengthens a submission</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55">
+            <div>— Public adjudication orders or CESTAT judgments</div>
+            <div>— Annual report extracts or BRSR filings</div>
+            <div>— SVB order references or case numbers</div>
+            <div>— Investor presentations or exchange filings</div>
+            <div>— MCA or SEBI filing references</div>
+            <div>— Specific dates, amounts and party names</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="form-group"><label class="form-label">Public document references (adjudication orders, filings, publications)</label><textarea class="form-input form-textarea" placeholder="List any publicly available documents that support the concern order numbers, filing references, URLs if available…"></textarea></div>
+          <div class="form-group"><label class="form-label">Additional context</label><textarea class="form-input form-textarea" placeholder="Any further context that would assist TEF in understanding or locating the relevant documents…"></textarea></div>
+        </div>
+        <div class="form-btns"><button class="btn-outline" onclick="nextStep(2)">← Back</button><button class="btn-gold" onclick="nextStep(4)">Continue →</button></div>
+      </div>
+      <div id="formStep4" class="form-step">
+        <div class="lrow"><div class="lbar"></div><span class="ltxt">Step 04 Optional</span></div>
+        <div class="stitle" style="font-size:18px;margin-bottom:6px">Your details (completely optional)</div>
+        <p style="font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:20px;max-width:520px">Anonymous submissions are fully accepted. You are not required to provide any identifying information. If you wish to receive TEF's acknowledgement or be kept informed of developments, you may optionally provide contact details below.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group"><label class="form-label">Name (optional)</label><input class="form-input" placeholder="Or leave blank for anonymous" type="text"></div>
+          <div class="form-group"><label class="form-label">Email (optional)</label><input class="form-input" placeholder="For acknowledgement only not published" type="email"></div>
+          <div class="form-group"><label class="form-label">Profession (optional)</label><input class="form-input" placeholder="e.g. Customs broker, freight forwarder, compliance officer" type="text"></div>
+          <div class="form-group"><label class="form-label">Preferred contact method (optional)</label><input class="form-input" placeholder="Email / phone / no contact preferred" type="text"></div>
+        </div>
+        <div style="background:var(--cream2);border:1px solid var(--border);border-left:3px solid var(--gold);padding:14px 18px;margin-top:16px;font-size:11px;color:var(--muted);line-height:1.55">
+          Information submitted through this form is received by TEF and held in strict confidence. It is used only for the purposes of TEF's registered public interest research and institutional submissions in furtherance of TEF's objects as recorded in its Memorandum of Association filed under the Companies Act, 2013. TEF does not share information provided with third parties without consent, except where required by law.
+        </div>
+        <div class="form-btns"><button class="btn-outline" onclick="nextStep(3)">← Back</button><button class="btn-gold" onclick="submitForm()">Submit Information</button></div>
+      </div>
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="stitle" style="font-size:20px;margin-bottom:8px">Information Received</div>
+        <p style="font-size:13px;color:var(--muted);font-weight:300;line-height:1.7;max-width:440px;margin:0 auto 20px">Thank you. TEF has received your submission. All information is held in strict confidence and will be reviewed by TEF's research team in accordance with our documented triage process.</p>
+        <div style="background:var(--cream2);border:1px solid var(--border);padding:20px;max-width:440px;margin:0 auto;text-align:left">
+          <div style="font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px">What happens next</div>
+          <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.65">
+            <div style="margin-bottom:6px">1. Your submission is reviewed by TEF's research team against the five-step methodology.</div>
+            <div style="margin-bottom:6px">2. Where the submission discloses a governance concern supportable by public records, TEF initiates research.</div>
+            <div style="margin-bottom:6px">3. If you provided contact details and requested acknowledgement, TEF will be in touch.</div>
+            <div>4. All submissions that proceed to research are handled entirely through TEF's institutional channels.</div>
+          </div>
+        </div>
+        <button class="btn-gold" style="margin-top:24px" onclick="showPage('home')">Return to Home</button>
+      </div>
+    </div>
+    <div class="submit-sidebar">
+      <div class="ss-title">After you submit</div>
+      <div class="ss-item"><div class="ss-n">1</div><div><div class="ss-t">Research review</div><p class="ss-b">TEF's research team reviews submissions against the five-step public-record methodology.</p></div></div>
+      <div class="ss-item"><div class="ss-n">2</div><div><div class="ss-t">Public-record verification</div><p class="ss-b">Where possible, the governance concern is verified against publicly available documents before any action is taken.</p></div></div>
+      <div class="ss-item"><div class="ss-n">3</div><div><div class="ss-t">Governance engagement first</div><p class="ss-b">Where research supports action, TEF's first step is always a governance review request to the corporate body.</p></div></div>
+      <div class="ss-item"><div class="ss-n">4</div><div><div class="ss-t">Institutional action</div><p class="ss-b">Only after the corporate body engagement step does TEF escalate to regulatory authorities and only where research fully supports the submission.</p></div></div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
+        <div class="ss-title">Legal basis</div>
+        <p style="font-size:11px;color:rgba(255,255,255,.3);line-height:1.6;font-weight:300">TEF acts in accordance with its registered objects under the Companies Act, 2013. All submissions are treated as information received for the purposes of TEF's public interest research mandate not as complaints, allegations or legal instructions.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="ft-top">
+      <div><div class="ft-name">Trade Ethics Forum</div><div class="ft-acr">TEF</div><p class="ft-desc">Section 8 · Companies Act 2013.</p></div>
+      <div class="ft-col"><h4>Pages</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('research')">Research</a><a onclick="showPage('tracker')">Regulatory Actions</a><a onclick="showPage('about')">About</a></div>
+      <div class="ft-col"><h4>Organisation</h4><a onclick="showPage('advisory')">Advisory Council</a><a onclick="showPage('csr')">CSR &amp; Funding</a></div>
+    </div>
+    <div class="ft-bot"><span class="ft-copy">© 2025 Trade Ethics Forum · Section 8 · CIN: [pending]</span></div>
+  </footer>
+</div>
+
+<script>
+// ── PAGE ROUTING ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  window.scrollTo(0, 0);
+}
+
+// ── SUBMISSIONS TRACKER ──
+function toggleSub(header) {
+  const card = header.parentElement;
+  const body = card.querySelector('.sub-body');
+  const btn = header.querySelector('.sub-expand');
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.sub-card').forEach(c => {
+    c.classList.remove('open');
+    c.querySelector('.sub-body').classList.remove('show');
+    c.querySelector('.sub-expand').textContent = '+';
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    body.classList.add('show');
+    btn.textContent = '−';
+  }
+}
+
+function filterTracker(cat, el) {
+  document.querySelectorAll('.ts-filter').forEach(f => f.classList.remove('active'));
+  el.classList.add('active');
+  const cards = document.querySelectorAll('.sub-card');
+  let visible = 0;
+  cards.forEach(c => {
+    if (cat === 'all' || c.dataset.cat === cat) {
+      c.style.display = 'block'; visible++;
+    } else {
+      c.style.display = 'none';
+    }
+  });
+  document.getElementById('subCount').textContent = 'Showing ' + visible + ' submission' + (visible !== 1 ? 's' : '');
+}
+
+function filterStatus(status, el) {
+  document.querySelectorAll('.ts-filter').forEach(f => f.classList.remove('active'));
+  el.classList.add('active');
+  const cards = document.querySelectorAll('.sub-card');
+  let visible = 0;
+  cards.forEach(c => {
+    if (c.dataset.status === status) {
+      c.style.display = 'block'; visible++;
+    } else {
+      c.style.display = 'none';
+    }
+  });
+  document.getElementById('subCount').textContent = 'Showing ' + visible + ' submission' + (visible !== 1 ? 's' : '');
+}
+
+// ── SUBMIT FORM ──
+var selectedType = null;
+function selectType(card) {
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedType = card.querySelector('.tc-title').textContent;
+}
+
+function nextStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.step-ind').forEach((ind, i) => {
+    ind.classList.remove('active', 'done');
+    if (i + 1 < n) ind.classList.add('done');
+    if (i + 1 === n) ind.classList.add('active');
+  });
+  const step = document.getElementById('formStep' + n);
+  if (step) step.classList.add('active');
+}
+
+function submitForm() {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.step-indicator').style.display = 'none';
+  document.getElementById('successScreen').classList.add('show');
+}
+</script>
+</body>
+</html>
